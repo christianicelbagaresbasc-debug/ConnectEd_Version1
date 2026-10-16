@@ -48,4 +48,9 @@ class StudentProfile extends Model
     {
         return $this->belongsTo(Document::class, 'resume_document_id');
     }
+
+    public function companySuggestions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(CompanySuggestion::class);
+    }
 }

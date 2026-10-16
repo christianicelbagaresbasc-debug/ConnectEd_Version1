@@ -7,9 +7,9 @@
 | F-003 | Staff Provisioning & Password Resets | Identity & Accounts | OC, COC, UA, PC | FR-01, FR-02 | 2 | Done | [F-003](features/F-003-staff-provisioning-and-password-management.md) | `/coordinator/staff` |
 | F-004 | Document Upload & Presigned Storage | Documents & Storage | All Roles | FR-04, FR-26, FR-28 | 2 | Done | [F-004](features/F-004-document-service-and-presigned-storage.md) | `/documents/uploads` |
 | F-005 | Global Archive & Audit Trail | System & Compliance | OC | FR-23, FR-25, BR-15 | 2 | Done | [F-005](features/F-005-global-archive-and-audit-trail.md) | `/coordinator/audit-logs` |
-| F-006 | Company Records Management | Companies | OC, COC, PC | FR-05, FR-07 | 3 | Planned | [F-006](features/F-006-company-records.md) | `/companies` |
-| F-007 | Company Verification Checklist | Companies | OC, PC | FR-06, BR-17 | 3 | Planned | [F-007](features/F-007-company-verification.md) | `/companies/{id}/verification` |
-| F-008 | Student Company Suggestion Intake | Companies | Student, OC | FR-24 | 3 | Planned | [F-008](features/F-008-company-suggestions.md) | `/company-suggestions` |
+| F-006 | Company Records Management | Companies | OC, COC, PC, Student | FR-04, FR-06, FR-16, BR-01, BR-17, BR-20 | 3 | Done | [F-006](features/F-006-company-records-management.md) | `/coordinator/companies` |
+| F-007 | Company Verification Checklist | Companies | OC, COC, UA, PC | FR-04, FR-05, BR-17 | 3 | Done | [F-007](features/F-007-company-verification-checklist.md) | `/coordinator/companies/{id}/verification` |
+| F-008 | Student Company Suggestion Intake | Companies | Student, OC, COC | FR-04, FR-06, BR-01 | 3 | Done | [F-008](features/F-008-student-company-suggestion-intake.md) | `/coordinator/company-suggestions` |
 | F-009 | Multi-Party MOA Tracking | MOA | OC, COC, UA, PC, Student | FR-21, BR-16 | 4 | Planned | [F-009](features/F-009-moa-tracking.md) | `/moas` |
 | F-010 | UA Legal Review & Notes | MOA | UA, OC, COC | FR-22, BR-18 | 4 | Planned | [F-010](features/F-010-ua-legal-notes.md) | `/moas/{id}/notes` |
 | F-011 | IT Skills Catalog & Student Profile | Skills | OC, Student | FR-03 | 5 | Planned | [F-011](features/F-011-skills-catalog.md) | `/profile/skills` |

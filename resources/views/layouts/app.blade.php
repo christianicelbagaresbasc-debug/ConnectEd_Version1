@@ -105,11 +105,11 @@
                             <a href="{{ route('coordinator.staff.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.staff.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Staff Accounts</span>
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
+                            <a href="{{ route('coordinator.companies.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.companies.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Company Records</span>
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
-                                <span>Verification Checklist</span>
+                            <a href="{{ route('coordinator.suggestions.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.suggestions.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
+                                <span>Company Suggestions</span>
                             </a>
                             <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
                                 <span>MOA Tracking</span>
@@ -185,7 +185,7 @@
                             <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
                                 <span>Best-Fit Recommendations</span>
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
+                            <a href="{{ route('student.companies.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('student.companies.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Partner Companies</span>
                             </a>
                             <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
@@ -194,7 +194,7 @@
                             <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
                                 <span>Placement Status</span>
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
+                            <a href="{{ route('student.suggestions.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('student.suggestions.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Suggest a Company</span>
                             </a>
                         @endif
