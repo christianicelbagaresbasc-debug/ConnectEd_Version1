@@ -111,7 +111,7 @@
                             <a href="{{ route('coordinator.suggestions.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.suggestions.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Company Suggestions</span>
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
+                            <a href="{{ route('moas.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('moas.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>MOA Tracking</span>
                             </a>
                             <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
@@ -143,7 +143,7 @@
                             <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
                                 <span>Assigned Tasks</span>
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
+                            <a href="{{ route('moas.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('moas.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Student MOAs</span>
                             </a>
                             <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
@@ -153,11 +153,11 @@
                         <!-- Role: UA Navigation Items -->
                         @elseif($role === 'ua')
                             <div class="pt-2 pb-1 px-3 text-[11px] font-bold uppercase tracking-wider text-text-muted">Legal Review</div>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
+                            <a href="{{ route('attorney.moas.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('attorney.moas.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>MOA Legal Queue</span>
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
-                                <span>Legal Remarks & Notes</span>
+                            <a href="{{ route('moas.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('moas.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
+                                <span>All Agreements</span>
                             </a>
 
                         <!-- Role: PC Navigation Items -->

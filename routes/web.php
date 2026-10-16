@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Attorney\MoaLegalReviewController;
 use App\Http\Controllers\Auth\ForcedPasswordChangeController;
 use App\Http\Controllers\Coordinator\ArchiveController;
 use App\Http\Controllers\Coordinator\AuditLogController;
@@ -10,6 +11,9 @@ use App\Http\Controllers\Coordinator\PasswordResetController;
 use App\Http\Controllers\Coordinator\StaffProvisioningController;
 use App\Http\Controllers\Coordinator\StudentApprovalController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\MoaController;
+use App\Http\Controllers\MoaCustodyController;
+use App\Http\Controllers\MoaVersionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Student\StudentCompanyController;
 use App\Http\Controllers\Student\StudentCompanySuggestionController;
@@ -138,6 +142,38 @@ Route::middleware(['auth', 'verified'])->prefix('student')->name('student.')->gr
         ->name('suggestions.create');
     Route::post('/company-suggestions', [StudentCompanySuggestionController::class, 'store'])
         ->name('suggestions.store');
+});
+
+// Multi-Party MOA Tracking Routes (F-009)
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/moas', [MoaController::class, 'index'])->name('moas.index');
+    Route::get('/moas/create', [MoaController::class, 'create'])->name('moas.create');
+    Route::post('/moas', [MoaController::class, 'store'])->name('moas.store');
+    Route::get('/moas/{moa}', [MoaController::class, 'show'])->name('moas.show');
+    Route::get('/moas/{moa}/edit', [MoaController::class, 'edit'])->name('moas.edit');
+    Route::put('/moas/{moa}', [MoaController::class, 'update'])->name('moas.update');
+    Route::delete('/moas/{moa}', [MoaController::class, 'destroy'])->name('moas.destroy');
+    Route::post('/moas/{moa}/status', [MoaController::class, 'updateStatus'])->name('moas.status.update');
+
+    // Custody Transfers (BR-16)
+    Route::post('/moas/{moa}/custody/transfer', [MoaCustodyController::class, 'transfer'])
+        ->name('moas.custody.transfer');
+
+    // Document Versions
+    Route::post('/moas/{moa}/versions', [MoaVersionController::class, 'store'])
+        ->name('moas.versions.store');
+});
+
+// University Attorney Legal Review Routes (F-010, BR-18)
+Route::middleware(['auth', 'verified'])->prefix('attorney')->name('attorney.')->group(function () {
+    Route::get('/moas', [MoaLegalReviewController::class, 'index'])
+        ->name('moas.index');
+    Route::post('/moas/{moa}/notes', [MoaLegalReviewController::class, 'storeNote'])
+        ->name('moas.notes.store');
+    Route::match(['post', 'patch'], '/moas/{moa}/notes/{note}/resolve', [MoaLegalReviewController::class, 'resolveNote'])
+        ->name('moas.notes.resolve');
+    Route::post('/moas/{moa}/clear', [MoaLegalReviewController::class, 'clearReview'])
+        ->name('moas.clear');
 });
 
 // Document Upload & Download Routes

@@ -2,6 +2,34 @@
 
 All notable changes to the ConnectEd system are documented in this file in chronological order by phase.
 
+## [Phase 4: Multi-Party MOA Tracking, Version History, and Attorney Review] - 2026-10-16
+
+### Added
+- **Multi-Party MOA Tracking & Version History (F-009):**
+  - Centralized institutional MOA directory (`/moas`) supporting both umbrella university-wide partnerships (`university_company`) and student-specific training agreements (`student_company`).
+  - Multi-criteria directory filters: keyword search (MOA number, company name, summary), lifecycle status, agreement type, and current custodian party.
+  - Comprehensive agreement drafting view (`/moas/create`) with dynamic Alpine.js student intern selector and initial custody assignment.
+  - Full-featured MOA workspace (`/moas/{id}`) displaying lifecycle status badges, current holding party highlight, effective dates, and interactive modal dialogs for custody transfers, version attachments, and status updates.
+  - Document versioning (`moa_versions`) enabling sequential version tracking (`version_no`), document storage integration, and uploader attribution.
+  - Strict Rule BR-16 implementation (**Unconstrained Custody Order**): Physical or digital custody of MOA documents may transfer between any authorized party (`oc`, `coc`, `ua`, `student`, `company`) in whatever sequence real-world paperwork demands; no rigid linear progression is enforced.
+  - Strictly append-only `moa_transfers` table recording transfer provenance (sender, recipient, actor, timestamp, note) with runtime Eloquent protection against modification and deletion.
+  - Agreement metadata editing (`/moas/{id}/edit`) and soft-deletion archiving into the Compliance Archive Center (BR-15).
+- **University Attorney (UA) Legal Review Queue & Confidential Notes (F-010):**
+  - Dedicated legal counsel review queue (`/attorney/moas`) providing metric counters for pending legal audits, active high-risk legal remarks, and total institutional contracts.
+  - Queue filters toggling between action-required contracts (under legal review or with unresolved remarks) and complete institutional contract audits.
+  - Strict Rule BR-18 implementation (**Confidentiality of Legal Notes**):
+    - Legal remarks, revision directives, and risk level classifications (`high`, `medium`, `low`) are strictly confidential internal work product of BSAU legal counsel and coordinators (`oc`, `coc`, `ua`).
+    - Server-side authorization in `MoaPolicy::viewInternalNotes` and `MoaPolicy::addInternalNote` completely blocks Partner Company (PC) and Student views; internal remarks never leak into HTML or API responses.
+    - Non-university users attempting to access legal endpoints receive immediate HTTP 403 Forbidden responses.
+  - Inline revision resolution tracking (`/attorney/moas/{id}/notes/{note}/resolve`) recording resolving attorney/coordinator and timestamp.
+  - Formal attorney clearance workflow (`/attorney/moas/{id}/clear`) transitioning agreement status to execution phases with permanent audit notes.
+- **Testing & Verification:**
+  - Added 15 new automated tests across 2 feature test classes:
+    - `MoaTrackingTest` (9 tests: directory filters, create with initial custody, unique MOA number validation, BR-16 unconstrained custody flow, transfer deletion block, version incrementing, metadata update, soft-delete archiving, non-OC authorization rules).
+    - `MoaLegalReviewTest` (6 tests: attorney queue display, non-legal 403 blocks, internal notes creation, strict BR-18 confidentiality verification, revision resolution, formal attorney clearance).
+  - Full test suite passing: **103 tests passing (412 assertions), 100% pass rate**.
+  - Frontend production build verified (`npm run build`).
+
 ---
 
 ## [Phase 3: Company Records, 6-Point Verification Checklist, and Student Suggestions] - 2026-10-16

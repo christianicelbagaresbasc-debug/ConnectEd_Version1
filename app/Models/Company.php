@@ -68,6 +68,16 @@ class Company extends Model
         return $this->hasMany(CompanySuggestion::class);
     }
 
+    public function moas(): HasMany
+    {
+        return $this->hasMany(Moa::class);
+    }
+
+    public function activeMoa(): HasMany
+    {
+        return $this->hasMany(Moa::class)->where('status', \App\Enums\MoaStatus::ACTIVE);
+    }
+
     public function isExistingPartner(): bool
     {
         return $this->classification === CompanyClassification::EXISTING_PARTNER;

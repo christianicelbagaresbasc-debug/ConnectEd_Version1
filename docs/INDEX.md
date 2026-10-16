@@ -10,8 +10,8 @@
 | F-006 | Company Records Management | Companies | OC, COC, PC, Student | FR-04, FR-06, FR-16, BR-01, BR-17, BR-20 | 3 | Done | [F-006](features/F-006-company-records-management.md) | `/coordinator/companies` |
 | F-007 | Company Verification Checklist | Companies | OC, COC, UA, PC | FR-04, FR-05, BR-17 | 3 | Done | [F-007](features/F-007-company-verification-checklist.md) | `/coordinator/companies/{id}/verification` |
 | F-008 | Student Company Suggestion Intake | Companies | Student, OC, COC | FR-04, FR-06, BR-01 | 3 | Done | [F-008](features/F-008-student-company-suggestion-intake.md) | `/coordinator/company-suggestions` |
-| F-009 | Multi-Party MOA Tracking | MOA | OC, COC, UA, PC, Student | FR-21, BR-16 | 4 | Planned | [F-009](features/F-009-moa-tracking.md) | `/moas` |
-| F-010 | UA Legal Review & Notes | MOA | UA, OC, COC | FR-22, BR-18 | 4 | Planned | [F-010](features/F-010-ua-legal-notes.md) | `/moas/{id}/notes` |
+| F-009 | Multi-Party MOA Tracking | MOA | OC, COC, UA, PC, Student | FR-21, BR-16 | 4 | Done | [F-009](features/F-009-moa-tracking.md) | `/moas` |
+| F-010 | UA Legal Review & Notes | MOA | UA, OC, COC | FR-22, BR-18 | 4 | Done | [F-010](features/F-010-ua-legal-notes.md) | `/attorney/moas` |
 | F-011 | IT Skills Catalog & Student Profile | Skills | OC, Student | FR-03 | 5 | Planned | [F-011](features/F-011-skills-catalog.md) | `/profile/skills` |
 | F-012 | Opportunity Management & Approval | Opportunities | OC, PC | FR-08, FR-09 | 5 | Planned | [F-012](features/F-012-opportunity-management.md) | `/opportunities` |
 | F-013 | Skill Matching Recommendation Engine | Opportunities | Student | FR-10, FR-11, BR-20 | 5 | Planned | [F-013](features/F-013-matching-engine.md) | `/recommendations` |

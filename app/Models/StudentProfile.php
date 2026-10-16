@@ -53,4 +53,9 @@ class StudentProfile extends Model
     {
         return $this->hasMany(CompanySuggestion::class);
     }
+
+    public function moas(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Moa::class);
+    }
 }

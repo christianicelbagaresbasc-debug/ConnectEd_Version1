@@ -22,8 +22,8 @@
 | FR-18 | Monitoring views & dashboards | F-018 | `/dashboard` | Planned | Partial (Phase 1 Shell) |
 | FR-19 | OC to COC task management | F-019 | `/tasks` | Planned | Planned |
 | FR-20 | Student-to-COC cohort assignment | F-019 | `/students/{id}/assign-coc` | Planned | Planned |
-| FR-21 | MOA tracking with custody history | F-009 | `/moas` | Planned | Planned |
-| FR-22 | UA legal notes on MOAs | F-010 | `/moas/{id}/notes` | Planned | Planned |
+| FR-21 | MOA tracking with custody history | [F-009](features/F-009-moa-tracking.md) | `/moas` | `MoaTrackingTest` | Done |
+| FR-22 | UA legal notes on MOAs | [F-010](features/F-010-ua-legal-notes.md) | `/attorney/moas` | `MoaLegalReviewTest` | Done |
 | FR-23 | Archiving of all records (soft delete) | [F-005](features/F-005-global-archive-and-audit-trail.md) | `/coordinator/archive` | `ArchiveRestoreTest` | Done |
 | FR-24 | Student company suggestion intake | [F-008](features/F-008-student-company-suggestion-intake.md) | `/coordinator/company-suggestions`, `/student/company-suggestions` | `CompanySuggestionTest` | Done |
 | FR-25 | Append-only audit log viewer | [F-005](features/F-005-global-archive-and-audit-trail.md) | `/coordinator/audit-logs` | `AuditLogTest` | Done |
@@ -36,9 +36,9 @@
 | NFR-07 | Mobile responsiveness & light/dark modes | [F-001](features/F-001-authentication-and-app-shell.md) | Global | `ThemePreferenceTest` | Done |
 | BR-01 | No company self-registration | [F-006](features/F-006-company-records-management.md) | Global | `CompanyManagementTest` | Done |
 | BR-02 | In-system notifications only | F-017 | Global | Planned | Planned |
-| BR-15 | All records archived, never deleted | [F-001](features/F-001-authentication-and-app-shell.md), [F-005](features/F-005-global-archive-and-audit-trail.md) | Global | `ArchiveRestoreTest`, `CompanyManagementTest` | Done |
-| BR-16 | Unconstrained MOA custody order | F-009 | `/moas` | Planned | Planned |
+| BR-15 | All records archived, never deleted | [F-001](features/F-001-authentication-and-app-shell.md), [F-005](features/F-005-global-archive-and-audit-trail.md) | Global | `ArchiveRestoreTest`, `CompanyManagementTest`, `MoaTrackingTest` | Done |
+| BR-16 | Unconstrained MOA custody order | [F-009](features/F-009-moa-tracking.md) | `/moas/{id}/custody/transfer` | `MoaTrackingTest` | Done |
 | BR-17 | OC-only promotion to Existing Partner | [F-006](features/F-006-company-records-management.md), [F-007](features/F-007-company-verification-checklist.md) | `/coordinator/companies/{id}/promote` | `CompanyPromotionRuleTest` | Done |
-| BR-18 | UA legal notes internal only | F-010 | `/moas/{id}/notes` | Planned | Planned |
+| BR-18 | UA legal notes internal only | [F-010](features/F-010-ua-legal-notes.md) | `/attorney/moas`, `/moas/{id}` | `MoaLegalReviewTest` | Done |
 | BR-19 | Single active placement per student | F-015 | `/placements` | Planned | Planned |
 | BR-20 | Recommendations visible to student only | F-013 | `/recommendations` | Planned | Planned |
