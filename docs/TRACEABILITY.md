@@ -2,10 +2,10 @@
 
 | Requirement ID | Description | Feature doc | Routes | Tests | Status |
 |---|---|---|---|---|---|
-| FR-01 | Account creation & role provisioning | [F-001](features/F-001-authentication-and-app-shell.md) | `/login` | `AuthenticationTest` | Partial (Phase 1 Base) |
-| FR-02 | Authentication & role-based access | [F-001](features/F-001-authentication-and-app-shell.md) | `/login`, `/logout` | `AuthenticationTest` | Done |
+| FR-01 | Account creation & role provisioning | [F-002](features/F-002-student-registration-and-approval.md), [F-003](features/F-003-staff-provisioning-and-password-management.md) | `/register`, `/coordinator/students/pending`, `/coordinator/staff` | `RegistrationTest`, `StudentRegistrationApprovalTest`, `StaffProvisioningTest` | Done |
+| FR-02 | Authentication & role-based access | [F-001](features/F-001-authentication-and-app-shell.md), [F-003](features/F-003-staff-provisioning-and-password-management.md) | `/login`, `/logout`, `/password/forced-change` | `AuthenticationTest`, `ForcedPasswordChangeTest` | Done |
 | FR-03 | Student profile, skills & certifications | F-011 | `/profile` | `ProfileTest` | In Progress |
-| FR-04 | Controlled document upload & validation | F-004 | `/documents/uploads` | Planned | Planned |
+| FR-04 | Controlled document upload & validation | [F-004](features/F-004-document-service-and-presigned-storage.md) | `/documents/uploads`, `/documents/{document}/download` | `DocumentAuthorizationMatrixTest`, `FileValidationTest` | Done |
 | FR-05 | Company Records management | F-006 | `/companies` | Planned | Planned |
 | FR-06 | Company verification checklist | F-007 | `/companies/{id}/verification` | Planned | Planned |
 | FR-07 | Company directory (Existing vs New) | F-006 | `/companies` | Planned | Planned |
@@ -24,10 +24,10 @@
 | FR-20 | Student-to-COC cohort assignment | F-019 | `/students/{id}/assign-coc` | Planned | Planned |
 | FR-21 | MOA tracking with custody history | F-009 | `/moas` | Planned | Planned |
 | FR-22 | UA legal notes on MOAs | F-010 | `/moas/{id}/notes` | Planned | Planned |
-| FR-23 | Archiving of all records (soft delete) | F-005 | `/archive` | `ProfileTest` (User soft delete) | Partial (Phase 1 Base) |
+| FR-23 | Archiving of all records (soft delete) | [F-005](features/F-005-global-archive-and-audit-trail.md) | `/coordinator/archive` | `ArchiveRestoreTest` | Done |
 | FR-24 | Student company suggestion intake | F-008 | `/company-suggestions` | Planned | Planned |
-| FR-25 | Append-only audit log viewer | F-005 | `/audit-logs` | Planned | Planned |
-| FR-26 | Bulk document upload with progress | F-004 | `/documents/uploads` | Planned | Planned |
+| FR-25 | Append-only audit log viewer | [F-005](features/F-005-global-archive-and-audit-trail.md) | `/coordinator/audit-logs` | `AuditLogTest` | Done |
+| FR-26 | Bulk document upload with progress | [F-004](features/F-004-document-service-and-presigned-storage.md) | `/documents/uploads` | `FileValidationTest` | Done |
 | FR-27 | Centralized document library | F-020 | `/document-library` | Planned | Planned |
 | FR-28 | Single & streamed ZIP bundle download | F-020 | `/document-library/bundle` | Planned | Planned |
 | FR-29 | Document versioning & templates | F-020 | `/document-library` | Planned | Planned |

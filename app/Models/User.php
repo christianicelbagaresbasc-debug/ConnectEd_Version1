@@ -62,6 +62,36 @@ class User extends Authenticatable
         return $this->belongsTo(User::class, 'approved_by');
     }
 
+    public function studentProfile(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(StudentProfile::class);
+    }
+
+    public function partnerAccount(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(PartnerAccount::class);
+    }
+
+    public function documents(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Document::class, 'owner_user_id');
+    }
+
+    public function uploadedDocuments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Document::class, 'uploaded_by');
+    }
+
+    public function auditLogs(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(AuditLog::class, 'actor_id');
+    }
+
+    public function assignedStudents(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(StudentProfile::class, 'assigned_coc_id');
+    }
+
     public function isOc(): bool
     {
         return $this->role === UserRole::OC;

@@ -3,10 +3,10 @@
 | Feature ID | Name | Module | Roles | FR/BR | Phase | Status | Doc link | Primary route |
 |---|---|---|---|---|---|---|---|---|
 | F-001 | Authentication & App Shell | Identity & Shell | OC, COC, UA, PC, Student | FR-01, FR-02, BR-01, BR-02, BR-15 | 1 | Done | [F-001](features/F-001-authentication-and-app-shell.md) | `/login` |
-| F-002 | Student Registration & Approval | Identity & Accounts | OC, Student | FR-01, FR-02, BR-01 | 2 | Planned | [F-002](features/F-002-student-registration-and-approval.md) | `/register` |
-| F-003 | Staff Provisioning & Password Resets | Identity & Accounts | OC, COC, UA, PC | FR-01, FR-02 | 2 | Planned | [F-003](features/F-003-staff-provisioning.md) | `/staff/create` |
-| F-004 | Document Upload & Presigned Storage | Documents & Storage | All Roles | FR-04, FR-26, FR-28 | 2 | Planned | [F-004](features/F-004-document-service.md) | `/documents/uploads` |
-| F-005 | Global Archive & Audit Trail | System & Compliance | OC | FR-23, FR-25, BR-15 | 2 | Planned | [F-005](features/F-005-archive-and-audit.md) | `/audit-logs` |
+| F-002 | Student Registration & Approval | Identity & Accounts | OC, Student | FR-01, FR-02, BR-01 | 2 | Done | [F-002](features/F-002-student-registration-and-approval.md) | `/coordinator/students/pending` |
+| F-003 | Staff Provisioning & Password Resets | Identity & Accounts | OC, COC, UA, PC | FR-01, FR-02 | 2 | Done | [F-003](features/F-003-staff-provisioning-and-password-management.md) | `/coordinator/staff` |
+| F-004 | Document Upload & Presigned Storage | Documents & Storage | All Roles | FR-04, FR-26, FR-28 | 2 | Done | [F-004](features/F-004-document-service-and-presigned-storage.md) | `/documents/uploads` |
+| F-005 | Global Archive & Audit Trail | System & Compliance | OC | FR-23, FR-25, BR-15 | 2 | Done | [F-005](features/F-005-global-archive-and-audit-trail.md) | `/coordinator/audit-logs` |
 | F-006 | Company Records Management | Companies | OC, COC, PC | FR-05, FR-07 | 3 | Planned | [F-006](features/F-006-company-records.md) | `/companies` |
 | F-007 | Company Verification Checklist | Companies | OC, PC | FR-06, BR-17 | 3 | Planned | [F-007](features/F-007-company-verification.md) | `/companies/{id}/verification` |
 | F-008 | Student Company Suggestion Intake | Companies | Student, OC | FR-24 | 3 | Planned | [F-008](features/F-008-company-suggestions.md) | `/company-suggestions` |

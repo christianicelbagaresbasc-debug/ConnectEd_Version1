@@ -99,8 +99,11 @@
                         <!-- Role: OC Navigation Items -->
                         @if($role === 'oc')
                             <div class="pt-2 pb-1 px-3 text-[11px] font-bold uppercase tracking-wider text-text-muted">Coordination</div>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
-                                <span>Students & Cohorts</span>
+                            <a href="{{ route('coordinator.students.pending') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.students.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
+                                <span>Student Approvals</span>
+                            </a>
+                            <a href="{{ route('coordinator.staff.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.staff.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
+                                <span>Staff Accounts</span>
                             </a>
                             <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
                                 <span>Company Records</span>
@@ -124,16 +127,10 @@
                                 <span>Tasks Delegation</span>
                             </a>
                             <div class="pt-2 pb-1 px-3 text-[11px] font-bold uppercase tracking-wider text-text-muted">System & Records</div>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
-                                <span>Document Library</span>
-                            </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
-                                <span>Reports & Export</span>
-                            </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
+                            <a href="{{ route('coordinator.archive.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.archive.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Archive Center</span>
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
+                            <a href="{{ route('coordinator.audit-logs.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.audit-logs.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Audit Log</span>
                             </a>
 
