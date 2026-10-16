@@ -1,0 +1,10 @@
+.git
+.env
+.env.*
+!.env.example
+node_modules
+tests
+vendor
+storage/logs/*
+public/build
+.vercel
