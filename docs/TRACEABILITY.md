@@ -4,15 +4,15 @@
 |---|---|---|---|---|---|
 | FR-01 | Account creation & role provisioning | [F-002](features/F-002-student-registration-and-approval.md), [F-003](features/F-003-staff-provisioning-and-password-management.md) | `/register`, `/coordinator/students/pending`, `/coordinator/staff` | `RegistrationTest`, `StudentRegistrationApprovalTest`, `StaffProvisioningTest` | Done |
 | FR-02 | Authentication & role-based access | [F-001](features/F-001-authentication-and-app-shell.md), [F-003](features/F-003-staff-provisioning-and-password-management.md) | `/login`, `/logout`, `/password/forced-change` | `AuthenticationTest`, `ForcedPasswordChangeTest` | Done |
-| FR-03 | Student profile, skills & certifications | F-011 | `/profile` | `ProfileTest` | In Progress |
+| FR-03 | Student profile, skills & certifications | [F-011](features/F-011-skills-catalog-and-student-profile.md) | `/profile`, `/coordinator/skills`, `/coordinator/students`, `/student/profile/skills` | `ProfileTest`, `SkillManagementTest`, `StudentSkillProfileTest`, `StudentDirectoryTest` | Done |
 | FR-04 | Controlled document upload & validation | [F-004](features/F-004-document-service-and-presigned-storage.md) | `/documents/uploads`, `/documents/{document}/download` | `DocumentAuthorizationMatrixTest`, `FileValidationTest` | Done |
 | FR-05 | Company Records management | [F-006](features/F-006-company-records-management.md) | `/coordinator/companies` | `CompanyManagementTest` | Done |
 | FR-06 | Company verification checklist | [F-007](features/F-007-company-verification-checklist.md) | `/coordinator/companies/{id}/verification` | `CompanyVerificationTest` | Done |
 | FR-07 | Company directory (Existing vs New) | [F-006](features/F-006-company-records-management.md) | `/coordinator/companies`, `/student/companies` | `CompanyManagementTest`, `CompanySuggestionTest` | Done |
-| FR-08 | Opportunity management | F-012 | `/opportunities` | Planned | Planned |
-| FR-09 | Opportunity requirements & qualifications | F-012 | `/opportunities` | Planned | Planned |
-| FR-10 | Opportunity search & multi-filter | F-013 | `/opportunities` | Planned | Planned |
-| FR-11 | Transparent skill-based recommendations | F-013 | `/recommendations` | Planned | Planned |
+| FR-08 | Opportunity management | [F-012](features/F-012-opportunity-management-and-approval.md) | `/opportunities` | `OpportunityManagementTest` | Done |
+| FR-09 | Opportunity requirements & qualifications | [F-012](features/F-012-opportunity-management-and-approval.md) | `/opportunities` | `OpportunityManagementTest` | Done |
+| FR-10 | Opportunity search & multi-filter | [F-012](features/F-012-opportunity-management-and-approval.md), [F-013](features/F-013-skill-matching-recommendation-engine.md) | `/opportunities`, `/student/recommendations` | `OpportunityManagementTest`, `RecommendationTest` | Done |
+| FR-11 | Transparent skill-based recommendations | [F-013](features/F-013-skill-matching-recommendation-engine.md) | `/student/recommendations` | `SkillMatcherTest`, `RecommendationTest` | Done |
 | FR-12 | Multiple applications per student | F-014 | `/applications` | Planned | Planned |
 | FR-13 | Formal application review by OC | F-014 | `/applications/{id}/review` | Planned | Planned |
 | FR-14 | Student offer accept/decline | F-015 | `/applications/{id}/student-confirm` | Planned | Planned |
@@ -41,4 +41,4 @@
 | BR-17 | OC-only promotion to Existing Partner | [F-006](features/F-006-company-records-management.md), [F-007](features/F-007-company-verification-checklist.md) | `/coordinator/companies/{id}/promote` | `CompanyPromotionRuleTest` | Done |
 | BR-18 | UA legal notes internal only | [F-010](features/F-010-ua-legal-notes.md) | `/attorney/moas`, `/moas/{id}` | `MoaLegalReviewTest` | Done |
 | BR-19 | Single active placement per student | F-015 | `/placements` | Planned | Planned |
-| BR-20 | Recommendations visible to student only | F-013 | `/recommendations` | Planned | Planned |
+| BR-20 | Recommendations visible to student only | [F-013](features/F-013-skill-matching-recommendation-engine.md) | `/student/recommendations` | `SkillMatcherTest`, `RecommendationTest`, `StudentDirectoryTest` | Done |

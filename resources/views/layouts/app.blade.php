@@ -99,8 +99,11 @@
                         <!-- Role: OC Navigation Items -->
                         @if($role === 'oc')
                             <div class="pt-2 pb-1 px-3 text-[11px] font-bold uppercase tracking-wider text-text-muted">Coordination</div>
-                            <a href="{{ route('coordinator.students.pending') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.students.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
+                            <a href="{{ route('coordinator.students.pending') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.students.pending') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Student Approvals</span>
+                            </a>
+                            <a href="{{ route('coordinator.students.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.students.index') || request()->routeIs('coordinator.students.show') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
+                                <span>Students Directory</span>
                             </a>
                             <a href="{{ route('coordinator.staff.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.staff.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Staff Accounts</span>
@@ -114,8 +117,11 @@
                             <a href="{{ route('moas.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('moas.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>MOA Tracking</span>
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
+                            <a href="{{ route('opportunities.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('opportunities.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Opportunities</span>
+                            </a>
+                            <a href="{{ route('coordinator.skills.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.skills.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
+                                <span>Skills Catalog</span>
                             </a>
                             <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
                                 <span>Applications Queue</span>
@@ -137,8 +143,11 @@
                         <!-- Role: COC Navigation Items -->
                         @elseif($role === 'coc')
                             <div class="pt-2 pb-1 px-3 text-[11px] font-bold uppercase tracking-wider text-text-muted">My Assignments</div>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
-                                <span>Assigned Students</span>
+                            <a href="{{ route('coordinator.students.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.students.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
+                                <span>Students Directory</span>
+                            </a>
+                            <a href="{{ route('opportunities.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('opportunities.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
+                                <span>Opportunities</span>
                             </a>
                             <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
                                 <span>Assigned Tasks</span>
@@ -163,10 +172,7 @@
                         <!-- Role: PC Navigation Items -->
                         @elseif($role === 'pc')
                             <div class="pt-2 pb-1 px-3 text-[11px] font-bold uppercase tracking-wider text-text-muted">Company Portal</div>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
-                                <span>Company Profile</span>
-                            </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
+                            <a href="{{ route('opportunities.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('opportunities.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>OJT Opportunities</span>
                             </a>
                             <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
@@ -179,11 +185,14 @@
                         <!-- Role: Student Navigation Items -->
                         @elseif($role === 'student')
                             <div class="pt-2 pb-1 px-3 text-[11px] font-bold uppercase tracking-wider text-text-muted">Internship Hub</div>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
+                            <a href="{{ route('student.profile.skills') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('student.profile.skills') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Profile & Skills</span>
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
+                            <a href="{{ route('student.recommendations.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('student.recommendations.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Best-Fit Recommendations</span>
+                            </a>
+                            <a href="{{ route('opportunities.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('opportunities.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
+                                <span>Browse Opportunities</span>
                             </a>
                             <a href="{{ route('student.companies.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('student.companies.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Partner Companies</span>

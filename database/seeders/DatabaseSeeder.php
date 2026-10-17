@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             VerificationRequirementSeeder::class,
             CompanySeeder::class,
             MoaSeeder::class,
+            SkillSeeder::class,
         ]);
     }
 }

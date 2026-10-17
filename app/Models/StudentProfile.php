@@ -58,4 +58,21 @@ class StudentProfile extends Model
     {
         return $this->hasMany(Moa::class);
     }
+
+    public function studentSkills(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(StudentSkill::class);
+    }
+
+    public function skills(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Skill::class, 'student_skills')
+            ->withPivot('proficiency')
+            ->withTimestamps();
+    }
+
+    public function certifications(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(StudentCertification::class);
+    }
 }

@@ -2,6 +2,43 @@
 
 All notable changes to the ConnectEd system are documented in this file in chronological order by phase.
 
+## [Phase 5: Opportunities, Skills Catalog, Transparent Matching, and Student Directory] - 2026-10-17
+
+### Added
+- **IT Skills Catalog & Student Competency Profile (F-011):**
+  - Standardized IT skills catalog (`/coordinator/skills`) seeded with 40 realistic IT competencies across Web Development, Programming, Database, Networking, DevOps, Cloud, Security, QA, Design, and Soft Skills (`SkillSeeder`).
+  - Catalog management: case-insensitive unique naming (`lower(name)` PostgreSQL index), category filtering, status management (`active`, `pending`, `inactive`), editing, and soft-delete archiving (BR-15).
+  - Student skill profile workspace (`/student/profile/skills`) allowing students to claim competencies with proficiency levels (`Beginner`, `Intermediate`, `Advanced`) and update them inline.
+  - Student skill suggestion intake (`/student/skills/suggest`) allowing students to propose missing competencies, which enter a coordinator review queue with an attention banner.
+  - Student certifications management supporting credentials (title, issuer, issue date) with optional document download links (FR-03).
+  - Alphabetical ICS student directory (`/coordinator/students`) and detailed student profile inspector (`/coordinator/students/{id}`) for coordinators and co-coordinators.
+- **Opportunity Management & Partner Posting Approvals (F-012):**
+  - Centralized OJT opportunity directory (`/opportunities`) with multi-criteria search and filters: role title/description, work arrangement (`onsite`, `remote`, `hybrid`), required/preferred skills, partner company, location, and publication status.
+  - OJT posting creation (`/opportunities/create`) and editing (`/opportunities/{id}/edit`) supporting role duties, prerequisites, capacity slots, deadline, and interactive required (2x weight) and preferred (1x weight) skill pickers.
+  - Assumption A5 enforcement: Partner Company (PC) postings default to `pending_approval` status, requiring explicit coordinator verification and approval (`/opportunities/{id}/approve`) before becoming visible to students.
+  - Student visibility scoping: students are restricted strictly to open opportunities from verified existing partner organizations with available slots and active deadlines.
+  - Opportunity soft-deletion archiving into the Compliance Archive Center (BR-15).
+- **Transparent Skill-Based Recommendation Engine (F-013):**
+  - Pure service matching class (`SkillMatcher`) calculating deterministic match percentages:
+    $$\text{score} = \text{round}\left(100 \times \frac{2 \times \text{matched\_required} + 1 \times \text{matched\_preferred}}{2 \times \text{total\_required} + 1 \times \text{total\_preferred}}\right)$$
+  - Strict Rule BR-20 implementation (**Non-Ranking of Students & Confidentiality**):
+    - Match scores are visible **only** to the student concerned on `/student/recommendations`.
+    - Non-student roles (OC, COC, UA, PC) receive immediate HTTP 403 Forbidden responses when attempting to access recommendations.
+    - Match scores are never calculated for or displayed on coordinator or partner views, and no query or controller ranks or sorts students by match score.
+  - Detailed reasoning breakdown for students: matched skills, missing required skills (2x penalty), and missing preferred skills (1x penalty) with color-coded status badges (`Strong match`, `Good match`, `Partial match`, `Low match`, `No skill data`).
+- **Testing & Verification:**
+  - Added 28 new automated tests across 5 test classes (7 unit tests and 21 feature tests):
+    - `SkillMatcherTest` (7 tests: all matched 100%, none matched 0%, only preferred, no required skills, no skills at all, deduplication, inactive/archived skills ignored).
+    - `SkillManagementTest` (8 tests: coordinator catalog display, create skill, unique name validation, update, student suggestion, coordinator approval, archive, non-coordinator forbidden).
+    - `OpportunityManagementTest` (7 tests: directory filters, create with skills, PC pending approval per A5, coordinator approval, student verified scoping, update/sync skills, soft delete).
+    - `StudentSkillProfileTest` (6 tests: profile display, add skill with proficiency, update proficiency, remove skill, add/remove certification, cross-student modification forbidden).
+    - `RecommendationTest` (3 tests: student match score and reasoning breakdown, BR-20 non-student 403 block, BR-20 codebase grep verifying no sorting of students by match score).
+    - `StudentDirectoryTest` (4 tests: OC/COC directory access, search and multi-criteria filters, individual profile inspection, non-coordinator forbidden).
+  - Full test suite passing: **138 tests passing (558 assertions), 100% pass rate**.
+  - Production asset build verified (`npm run build`).
+
+---
+
 ## [Phase 4: Multi-Party MOA Tracking, Version History, and Attorney Review] - 2026-10-16
 
 ### Added

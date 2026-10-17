@@ -118,4 +118,9 @@ class Company extends Model
 
         return (int) round(($accepted / $total) * 100);
     }
+
+    public function opportunities(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Opportunity::class);
+    }
 }

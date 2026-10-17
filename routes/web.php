@@ -8,15 +8,21 @@ use App\Http\Controllers\Coordinator\CompanyController;
 use App\Http\Controllers\Coordinator\CompanySuggestionController;
 use App\Http\Controllers\Coordinator\CompanyVerificationController;
 use App\Http\Controllers\Coordinator\PasswordResetController;
+use App\Http\Controllers\Coordinator\SkillController;
 use App\Http\Controllers\Coordinator\StaffProvisioningController;
 use App\Http\Controllers\Coordinator\StudentApprovalController;
+use App\Http\Controllers\Coordinator\StudentController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\MoaController;
 use App\Http\Controllers\MoaCustodyController;
 use App\Http\Controllers\MoaVersionController;
+use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Student\RecommendationController;
+use App\Http\Controllers\Student\StudentCertificationController;
 use App\Http\Controllers\Student\StudentCompanyController;
 use App\Http\Controllers\Student\StudentCompanySuggestionController;
+use App\Http\Controllers\Student\StudentSkillController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -125,6 +131,24 @@ Route::middleware(['auth', 'verified'])->prefix('coordinator')->name('coordinato
         ->name('suggestions.convert');
     Route::post('/company-suggestions/{suggestion}/dismiss', [CompanySuggestionController::class, 'dismiss'])
         ->name('suggestions.dismiss');
+
+    // IT Skills Catalog Management (F-011)
+    Route::get('/skills', [SkillController::class, 'index'])
+        ->name('skills.index');
+    Route::post('/skills', [SkillController::class, 'store'])
+        ->name('skills.store');
+    Route::put('/skills/{skill}', [SkillController::class, 'update'])
+        ->name('skills.update');
+    Route::post('/skills/{skill}/approve', [SkillController::class, 'approve'])
+        ->name('skills.approve');
+    Route::delete('/skills/{skill}', [SkillController::class, 'destroy'])
+        ->name('skills.destroy');
+
+    // Student Directory & Cohort Monitoring (FR-03, FR-18)
+    Route::get('/students', [StudentController::class, 'index'])
+        ->name('students.index');
+    Route::get('/students/{studentProfile}', [StudentController::class, 'show'])
+        ->name('students.show');
 });
 
 // Student Module Routes
@@ -142,6 +166,40 @@ Route::middleware(['auth', 'verified'])->prefix('student')->name('student.')->gr
         ->name('suggestions.create');
     Route::post('/company-suggestions', [StudentCompanySuggestionController::class, 'store'])
         ->name('suggestions.store');
+
+    // Student Skills Profile & Suggestion (F-011)
+    Route::get('/profile/skills', [StudentSkillController::class, 'index'])
+        ->name('profile.skills');
+    Route::post('/profile/skills', [StudentSkillController::class, 'store'])
+        ->name('profile.skills.store');
+    Route::put('/profile/skills/{studentSkill}', [StudentSkillController::class, 'update'])
+        ->name('profile.skills.update');
+    Route::delete('/profile/skills/{studentSkill}', [StudentSkillController::class, 'destroy'])
+        ->name('profile.skills.destroy');
+    Route::post('/skills/suggest', [StudentSkillController::class, 'suggest'])
+        ->name('skills.suggest');
+
+    // Certifications (FR-03)
+    Route::post('/profile/certifications', [StudentCertificationController::class, 'store'])
+        ->name('profile.certifications.store');
+    Route::delete('/profile/certifications/{certification}', [StudentCertificationController::class, 'destroy'])
+        ->name('profile.certifications.destroy');
+
+    // Transparent Recommendations Engine (F-013, BR-20)
+    Route::get('/recommendations', [RecommendationController::class, 'index'])
+        ->name('recommendations.index');
+});
+
+// Opportunity Management & Directory (F-012, FR-08, FR-09, FR-10)
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/opportunities', [OpportunityController::class, 'index'])->name('opportunities.index');
+    Route::get('/opportunities/create', [OpportunityController::class, 'create'])->name('opportunities.create');
+    Route::post('/opportunities', [OpportunityController::class, 'store'])->name('opportunities.store');
+    Route::get('/opportunities/{opportunity}', [OpportunityController::class, 'show'])->name('opportunities.show');
+    Route::get('/opportunities/{opportunity}/edit', [OpportunityController::class, 'edit'])->name('opportunities.edit');
+    Route::put('/opportunities/{opportunity}', [OpportunityController::class, 'update'])->name('opportunities.update');
+    Route::post('/opportunities/{opportunity}/approve', [OpportunityController::class, 'approve'])->name('opportunities.approve');
+    Route::delete('/opportunities/{opportunity}', [OpportunityController::class, 'destroy'])->name('opportunities.destroy');
 });
 
 // Multi-Party MOA Tracking Routes (F-009)
