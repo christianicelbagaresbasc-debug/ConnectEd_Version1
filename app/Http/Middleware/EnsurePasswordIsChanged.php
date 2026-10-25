@@ -15,7 +15,7 @@ class EnsurePasswordIsChanged
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check() && Auth::user()->must_change_password) {
-            if (!$request->routeIs('password.forced-change', 'password.forced-update', 'logout')) {
+            if (! $request->routeIs('password.forced-change', 'password.forced-update', 'logout')) {
                 return redirect()->route('password.forced-change');
             }
         }

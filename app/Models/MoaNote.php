@@ -46,7 +46,7 @@ class MoaNote extends Model
 
     public function isResolved(): bool
     {
-        return !is_null($this->resolved_at);
+        return ! is_null($this->resolved_at);
     }
 
     public function isLegal(): bool

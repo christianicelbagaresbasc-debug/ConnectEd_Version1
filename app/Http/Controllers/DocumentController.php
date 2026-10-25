@@ -48,7 +48,7 @@ class DocumentController extends Controller
      */
     public function confirmBatch(Request $request, DocumentBatch $batch): JsonResponse
     {
-        if ($batch->user_id !== Auth::id() && !Auth::user()->isOc()) {
+        if ($batch->user_id !== Auth::id() && ! Auth::user()->isOc()) {
             abort(403, 'Unauthorized batch confirmation.');
         }
 
@@ -92,7 +92,7 @@ class DocumentController extends Controller
      */
     public function directUpload(Request $request): JsonResponse
     {
-        if (!$request->hasValidSignature()) {
+        if (! $request->hasValidSignature()) {
             abort(401, 'Invalid or expired upload signature.');
         }
 
@@ -117,7 +117,7 @@ class DocumentController extends Controller
      */
     public function directDownloadServe(Request $request, Document $document): BinaryFileResponse
     {
-        if (!$request->hasValidSignature()) {
+        if (! $request->hasValidSignature()) {
             abort(401, 'Invalid or expired download signature.');
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\UserRole;
+use App\Enums\UserStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,8 +19,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role')->default(\App\Enums\UserRole::STUDENT->value);
-            $table->string('status')->default(\App\Enums\UserStatus::PENDING->value);
+            $table->string('role')->default(UserRole::STUDENT->value);
+            $table->string('status')->default(UserStatus::PENDING->value);
             $table->boolean('must_change_password')->default(false);
             $table->foreignId('approved_by')->nullable()->constrained('users')->restrictOnDelete();
             $table->timestamp('approved_at')->nullable();

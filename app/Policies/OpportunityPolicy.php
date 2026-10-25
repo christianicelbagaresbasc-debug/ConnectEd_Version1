@@ -35,7 +35,7 @@ class OpportunityPolicy
         if ($user->isStudent()) {
             // Students can only view open opportunities from active verified existing partners
             $company = $opportunity->company;
-            if (!$company || !$company->is_active || $company->classification !== CompanyClassification::EXISTING_PARTNER || $company->verification_status !== CompanyVerificationStatus::VERIFIED) {
+            if (! $company || ! $company->is_active || $company->classification !== CompanyClassification::EXISTING_PARTNER || $company->verification_status !== CompanyVerificationStatus::VERIFIED) {
                 return false;
             }
 
@@ -53,6 +53,7 @@ class OpportunityPolicy
 
         if ($user->isPc() && $user->partnerAccount) {
             $company = $user->partnerAccount->company;
+
             return $company && $company->is_active;
         }
 

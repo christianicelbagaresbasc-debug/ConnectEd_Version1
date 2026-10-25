@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class StudentProfile extends Model
@@ -49,30 +52,45 @@ class StudentProfile extends Model
         return $this->belongsTo(Document::class, 'resume_document_id');
     }
 
-    public function companySuggestions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function companySuggestions(): HasMany
     {
         return $this->hasMany(CompanySuggestion::class);
     }
 
-    public function moas(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function moas(): HasMany
     {
         return $this->hasMany(Moa::class);
     }
 
-    public function studentSkills(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function studentSkills(): HasMany
     {
         return $this->hasMany(StudentSkill::class);
     }
 
-    public function skills(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function skills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class, 'student_skills')
             ->withPivot('proficiency')
             ->withTimestamps();
     }
 
-    public function certifications(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function certifications(): HasMany
     {
         return $this->hasMany(StudentCertification::class);
+    }
+
+    public function applications(): HasMany
+    {
+        return $this->hasMany(Application::class);
+    }
+
+    public function placements(): HasMany
+    {
+        return $this->hasMany(Placement::class);
+    }
+
+    public function activePlacement(): HasOne
+    {
+        return $this->hasOne(Placement::class)->where('is_active', true);
     }
 }

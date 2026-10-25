@@ -18,7 +18,7 @@ class StudentCompanySuggestionController extends Controller
         $this->authorize('viewAny', CompanySuggestion::class);
 
         $studentProfile = Auth::user()->studentProfile;
-        if (!$studentProfile) {
+        if (! $studentProfile) {
             abort(403, 'Student profile not found.');
         }
 
@@ -42,7 +42,7 @@ class StudentCompanySuggestionController extends Controller
         $this->authorize('create', CompanySuggestion::class);
 
         $studentProfile = Auth::user()->studentProfile;
-        if (!$studentProfile) {
+        if (! $studentProfile) {
             abort(403, 'Student profile not found.');
         }
 

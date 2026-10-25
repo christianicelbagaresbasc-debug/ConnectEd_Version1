@@ -21,7 +21,9 @@ class CompanySuggestionTest extends TestCase
     use RefreshDatabase;
 
     protected User $coordinator;
+
     protected User $studentUser;
+
     protected StudentProfile $studentProfile;
 
     protected function setUp(): void

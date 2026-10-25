@@ -15,10 +15,10 @@
 | F-011 | IT Skills Catalog & Student Profile | Skills | OC, Student, COC | FR-03 | 5 | Done | [F-011](features/F-011-skills-catalog-and-student-profile.md) | `/coordinator/skills`, `/student/profile/skills` |
 | F-012 | Opportunity Management & Approval | Opportunities | OC, PC, Student, COC, UA | FR-08, FR-09 | 5 | Done | [F-012](features/F-012-opportunity-management-and-approval.md) | `/opportunities` |
 | F-013 | Skill Matching Recommendation Engine | Opportunities | Student | FR-10, FR-11, BR-20 | 5 | Done | [F-013](features/F-013-skill-matching-recommendation-engine.md) | `/student/recommendations` |
-| F-014 | Application Workflow & OC Decisions | Applications | Student, OC, PC | FR-12, FR-13 | 6 | Planned | [F-014](features/F-014-applications.md) | `/applications` |
-| F-015 | Student Offer Confirmation & Placement | Placements | Student, OC | FR-14, FR-15, BR-19 | 6 | Planned | [F-015](features/F-015-placements.md) | `/placements` |
-| F-016 | Placement Monitoring & Weekly Reports | Placements | OC, COC, Student | FR-16 | 6 | Planned | [F-016](features/F-016-placement-monitoring.md) | `/placements/{id}` |
-| F-017 | In-System Notification Center | Notifications | All Roles | FR-17 | 6 | Planned | [F-017](features/F-017-notifications.md) | `/notifications` |
+| F-014 | Application Workflow & OC Decisions | Applications | Student, OC, PC | FR-12, FR-13 | 6 | Done | [F-014](features/F-014-applications.md) | `/applications` |
+| F-015 | Student Offer Confirmation & Placement | Placements | Student, OC | FR-14, FR-15, BR-19 | 6 | Done | [F-015](features/F-015-placements.md) | `/placements` |
+| F-016 | Placement Monitoring & Weekly Reports | Placements | OC, COC, Student | FR-16 | 6 | Done | [F-016](features/F-016-placement-monitoring.md) | `/placements/{id}` |
+| F-017 | In-System Notification Center | Notifications | All Roles | FR-17 | 6 | Done | [F-017](features/F-017-notifications.md) | `/notifications` |
 | F-018 | Role Landing Dashboards & Widgets | Dashboards | All Roles | FR-18 | 7 | Planned | [F-018](features/F-018-dashboards.md) | `/dashboard` |
 | F-019 | Task Delegation & Student Assignment | Work Management | OC, COC | FR-19, FR-20 | 7 | Planned | [F-019](features/F-019-tasks.md) | `/tasks` |
 | F-020 | Document Library & Bundle Downloads | Documents | All Roles | FR-27, FR-28, FR-29 | 7 | Planned | [F-020](features/F-020-document-library.md) | `/document-library` |

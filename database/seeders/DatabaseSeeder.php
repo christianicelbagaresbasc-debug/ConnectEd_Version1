@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             CompanySeeder::class,
             MoaSeeder::class,
             SkillSeeder::class,
+            OpportunityPlacementSeeder::class,
         ]);
     }
 }

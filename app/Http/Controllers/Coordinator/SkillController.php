@@ -75,7 +75,7 @@ class SkillController extends Controller
         $this->authorize('update', $skill);
 
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:100', 'unique:skills,name,' . $skill->id],
+            'name' => ['required', 'string', 'max:100', 'unique:skills,name,'.$skill->id],
             'category' => ['required', 'string', 'max:100'],
             'status' => ['required', new Enum(SkillStatus::class)],
         ]);

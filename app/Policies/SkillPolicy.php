@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Enums\UserRole;
 use App\Models\Skill;
 use App\Models\User;
 

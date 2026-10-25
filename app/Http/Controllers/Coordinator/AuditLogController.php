@@ -17,7 +17,7 @@ class AuditLogController extends Controller
         $query = AuditLog::with('actor')->latest('created_at');
 
         if ($request->filled('action')) {
-            $query->where('action', 'like', '%' . $request->input('action') . '%');
+            $query->where('action', 'like', '%'.$request->input('action').'%');
         }
 
         if ($request->filled('actor_id')) {

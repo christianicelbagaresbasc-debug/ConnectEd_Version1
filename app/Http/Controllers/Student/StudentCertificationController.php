@@ -16,7 +16,7 @@ class StudentCertificationController extends Controller
         $user = Auth::user();
         $studentProfile = $user->studentProfile;
 
-        if (!$studentProfile) {
+        if (! $studentProfile) {
             abort(403);
         }
 
@@ -48,7 +48,7 @@ class StudentCertificationController extends Controller
         $user = Auth::user();
         $studentProfile = $user->studentProfile;
 
-        if (!$studentProfile || $certification->student_profile_id !== $studentProfile->id) {
+        if (! $studentProfile || $certification->student_profile_id !== $studentProfile->id) {
             abort(403);
         }
 

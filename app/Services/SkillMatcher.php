@@ -14,8 +14,8 @@ class SkillMatcher
     /**
      * Compute the transparent match score and explanation for a student against an opportunity.
      *
-     * @param iterable<int|string>|Collection $studentSkillIds Collection or array of student skill IDs
-     * @param Opportunity $opportunity Opportunity model with opportunitySkills and skills
+     * @param  iterable<int|string>|Collection  $studentSkillIds  Collection or array of student skill IDs
+     * @param  Opportunity  $opportunity  Opportunity model with opportunitySkills and skills
      * @return array{
      *     score: int|null,
      *     label: string,
@@ -48,7 +48,7 @@ class SkillMatcher
 
         $activeOppSkills = $opportunitySkills->filter(function (OpportunitySkill $oppSkill) {
             $skill = $oppSkill->skill;
-            if (!$skill) {
+            if (! $skill) {
                 return false;
             }
 

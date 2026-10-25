@@ -19,7 +19,7 @@ class PasswordResetController extends Controller
     {
         $this->authorize('resetPassword', User::class);
 
-        $temporaryPassword = 'Reset_' . Str::random(10) . '2026!';
+        $temporaryPassword = 'Reset_'.Str::random(10).'2026!';
 
         $user->update([
             'password' => Hash::make($temporaryPassword),

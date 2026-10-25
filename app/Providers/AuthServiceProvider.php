@@ -3,6 +3,28 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\Application;
+use App\Models\Company;
+use App\Models\CompanySuggestion;
+use App\Models\Document;
+use App\Models\Moa;
+use App\Models\Opportunity;
+use App\Models\Placement;
+use App\Models\Skill;
+use App\Models\StudentProfile;
+use App\Models\User;
+use App\Models\WeeklyReport;
+use App\Policies\ApplicationPolicy;
+use App\Policies\CompanyPolicy;
+use App\Policies\CompanySuggestionPolicy;
+use App\Policies\DocumentPolicy;
+use App\Policies\MoaPolicy;
+use App\Policies\OpportunityPolicy;
+use App\Policies\PlacementPolicy;
+use App\Policies\SkillPolicy;
+use App\Policies\StudentProfilePolicy;
+use App\Policies\UserPolicy;
+use App\Policies\WeeklyReportPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -13,14 +35,17 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        \App\Models\User::class => \App\Policies\UserPolicy::class,
-        \App\Models\Document::class => \App\Policies\DocumentPolicy::class,
-        \App\Models\Company::class => \App\Policies\CompanyPolicy::class,
-        \App\Models\CompanySuggestion::class => \App\Policies\CompanySuggestionPolicy::class,
-        \App\Models\Moa::class => \App\Policies\MoaPolicy::class,
-        \App\Models\Skill::class => \App\Policies\SkillPolicy::class,
-        \App\Models\Opportunity::class => \App\Policies\OpportunityPolicy::class,
-        \App\Models\StudentProfile::class => \App\Policies\StudentProfilePolicy::class,
+        User::class => UserPolicy::class,
+        Document::class => DocumentPolicy::class,
+        Company::class => CompanyPolicy::class,
+        CompanySuggestion::class => CompanySuggestionPolicy::class,
+        Moa::class => MoaPolicy::class,
+        Skill::class => SkillPolicy::class,
+        Opportunity::class => OpportunityPolicy::class,
+        StudentProfile::class => StudentProfilePolicy::class,
+        Application::class => ApplicationPolicy::class,
+        Placement::class => PlacementPolicy::class,
+        WeeklyReport::class => WeeklyReportPolicy::class,
     ];
 
     /**

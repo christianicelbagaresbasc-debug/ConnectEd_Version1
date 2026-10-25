@@ -42,9 +42,9 @@ class OpportunityController extends Controller
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%")
-                  ->orWhere('location', 'like', "%{$search}%")
-                  ->orWhereHas('company', fn ($cq) => $cq->where('name', 'like', "%{$search}%"));
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhere('location', 'like', "%{$search}%")
+                    ->orWhereHas('company', fn ($cq) => $cq->where('name', 'like', "%{$search}%"));
             });
         }
 
@@ -53,14 +53,14 @@ class OpportunityController extends Controller
         }
 
         if ($request->filled('location')) {
-            $query->where('location', 'like', '%' . $request->input('location') . '%');
+            $query->where('location', 'like', '%'.$request->input('location').'%');
         }
 
         if ($request->filled('company_id')) {
             $query->where('company_id', $request->input('company_id'));
         }
 
-        if ($request->filled('status') && !$user->isStudent()) {
+        if ($request->filled('status') && ! $user->isStudent()) {
             $query->where('status', $request->input('status'));
         }
 
@@ -129,7 +129,7 @@ class OpportunityController extends Controller
 
         if ($user->isPc()) {
             $companyId = $user->partnerAccount?->company_id;
-            if (!$companyId) {
+            if (! $companyId) {
                 abort(403, 'Partner company not linked.');
             }
         } else {
@@ -168,7 +168,7 @@ class OpportunityController extends Controller
             ]);
 
             // Attach required skills
-            if (!empty($validated['required_skills'])) {
+            if (! empty($validated['required_skills'])) {
                 foreach (array_unique($validated['required_skills']) as $skillId) {
                     OpportunitySkill::create([
                         'opportunity_id' => $opp->id,
@@ -179,10 +179,10 @@ class OpportunityController extends Controller
             }
 
             // Attach preferred skills
-            if (!empty($validated['preferred_skills'])) {
+            if (! empty($validated['preferred_skills'])) {
                 $existing = $opp->opportunitySkills()->pluck('skill_id')->all();
                 foreach (array_unique($validated['preferred_skills']) as $skillId) {
-                    if (!in_array($skillId, $existing)) {
+                    if (! in_array($skillId, $existing)) {
                         OpportunitySkill::create([
                             'opportunity_id' => $opp->id,
                             'skill_id' => $skillId,
@@ -273,7 +273,7 @@ class OpportunityController extends Controller
             // Sync skills
             $opportunity->opportunitySkills()->delete();
 
-            if (!empty($validated['required_skills'])) {
+            if (! empty($validated['required_skills'])) {
                 foreach (array_unique($validated['required_skills']) as $skillId) {
                     OpportunitySkill::create([
                         'opportunity_id' => $opportunity->id,
@@ -283,10 +283,10 @@ class OpportunityController extends Controller
                 }
             }
 
-            if (!empty($validated['preferred_skills'])) {
+            if (! empty($validated['preferred_skills'])) {
                 $existing = $opportunity->opportunitySkills()->pluck('skill_id')->all();
                 foreach (array_unique($validated['preferred_skills']) as $skillId) {
-                    if (!in_array($skillId, $existing)) {
+                    if (! in_array($skillId, $existing)) {
                         OpportunitySkill::create([
                             'opportunity_id' => $opportunity->id,
                             'skill_id' => $skillId,

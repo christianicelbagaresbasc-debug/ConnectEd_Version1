@@ -21,7 +21,7 @@ class StudentSkillController extends Controller
         $user = Auth::user();
         $studentProfile = $user->studentProfile;
 
-        if (!$studentProfile) {
+        if (! $studentProfile) {
             abort(403, 'Student profile not initialized.');
         }
 
@@ -46,7 +46,7 @@ class StudentSkillController extends Controller
         $user = Auth::user();
         $studentProfile = $user->studentProfile;
 
-        if (!$studentProfile) {
+        if (! $studentProfile) {
             abort(403, 'Student profile not initialized.');
         }
 
@@ -78,7 +78,7 @@ class StudentSkillController extends Controller
         $user = Auth::user();
         $studentProfile = $user->studentProfile;
 
-        if (!$studentProfile || $studentSkill->student_profile_id !== $studentProfile->id) {
+        if (! $studentProfile || $studentSkill->student_profile_id !== $studentProfile->id) {
             abort(403);
         }
 
@@ -96,7 +96,7 @@ class StudentSkillController extends Controller
         $user = Auth::user();
         $studentProfile = $user->studentProfile;
 
-        if (!$studentProfile || $studentSkill->student_profile_id !== $studentProfile->id) {
+        if (! $studentProfile || $studentSkill->student_profile_id !== $studentProfile->id) {
             abort(403);
         }
 

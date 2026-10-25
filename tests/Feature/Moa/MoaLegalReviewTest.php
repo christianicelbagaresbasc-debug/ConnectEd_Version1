@@ -25,10 +25,15 @@ class MoaLegalReviewTest extends TestCase
     use RefreshDatabase;
 
     protected User $coordinator;
+
     protected User $attorney;
+
     protected User $studentUser;
+
     protected User $pcUser;
+
     protected StudentProfile $studentProfile;
+
     protected Company $company;
 
     protected function setUp(): void

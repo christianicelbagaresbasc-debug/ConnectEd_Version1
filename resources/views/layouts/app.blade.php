@@ -123,14 +123,11 @@
                             <a href="{{ route('coordinator.skills.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.skills.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Skills Catalog</span>
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
+                            <a href="{{ route('coordinator.applications.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.applications.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Applications Queue</span>
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
+                            <a href="{{ route('coordinator.placements.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.placements.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Placements</span>
-                            </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
-                                <span>Tasks Delegation</span>
                             </a>
                             <div class="pt-2 pb-1 px-3 text-[11px] font-bold uppercase tracking-wider text-text-muted">System & Records</div>
                             <a href="{{ route('coordinator.archive.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.archive.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
@@ -149,14 +146,14 @@
                             <a href="{{ route('opportunities.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('opportunities.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Opportunities</span>
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
-                                <span>Assigned Tasks</span>
+                            <a href="{{ route('coordinator.applications.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.applications.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
+                                <span>Applications Queue</span>
                             </a>
                             <a href="{{ route('moas.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('moas.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Student MOAs</span>
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
-                                <span>Weekly Reports</span>
+                            <a href="{{ route('coordinator.placements.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('coordinator.placements.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
+                                <span>Placements & Reports</span>
                             </a>
 
                         <!-- Role: UA Navigation Items -->
@@ -175,10 +172,10 @@
                             <a href="{{ route('opportunities.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('opportunities.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>OJT Opportunities</span>
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
+                            <a href="{{ route('company.applications.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('company.applications.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Applicants Review</span>
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
+                            <a href="{{ route('company.placements.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('company.placements.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Active Interns</span>
                             </a>
 
@@ -197,16 +194,14 @@
                             <a href="{{ route('student.companies.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('student.companies.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Partner Companies</span>
                             </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
+                            <a href="{{ route('student.applications.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('student.applications.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>My Applications</span>
-                            </a>
-                            <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-text hover:bg-surface-2 transition">
-                                <span>Placement Status</span>
                             </a>
                             <a href="{{ route('student.suggestions.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition {{ request()->routeIs('student.suggestions.*') ? 'bg-primary text-primary-contrast font-semibold shadow-sm' : 'text-text hover:bg-surface-2' }}">
                                 <span>Suggest a Company</span>
                             </a>
                         @endif
+
                     </nav>
                 </div>
 
@@ -245,9 +240,12 @@
                         <!-- Theme Toggle Component -->
                         <x-theme-toggle />
 
-                        <!-- Notification Bell (FR-17) -->
-                        <button 
-                            type="button" 
+                        <!-- Notification Bell (FR-17, BR-02) -->
+                        @php
+                            $unreadNotificationsCount = Auth::user() ? Auth::user()->unreadNotifications()->count() : 0;
+                        @endphp
+                        <a 
+                            href="{{ route('notifications.index') }}" 
                             class="relative p-2 rounded-lg text-text-muted hover:text-text hover:bg-surface-2 focus:outline-none focus:ring-2 focus:ring-primary transition"
                             title="Notifications"
                             aria-label="View notifications"
@@ -255,9 +253,13 @@
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
                             </svg>
-                            <!-- Notification indicator dot -->
-                            <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-accent rounded-full ring-2 ring-surface"></span>
-                        </button>
+                            @if($unreadNotificationsCount > 0)
+                                <span class="absolute top-1 right-1 min-w-[16px] h-4 px-1 rounded-full bg-accent text-[10px] font-bold text-white flex items-center justify-center ring-2 ring-surface">
+                                    {{ $unreadNotificationsCount > 99 ? '99+' : $unreadNotificationsCount }}
+                                </span>
+                            @endif
+                        </a>
+
 
                         <!-- User Profile Dropdown -->
                         <div class="relative" x-data="{ open: false }">

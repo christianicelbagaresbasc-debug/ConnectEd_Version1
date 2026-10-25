@@ -23,10 +23,15 @@ class OpportunityManagementTest extends TestCase
     use RefreshDatabase;
 
     protected User $coordinator;
+
     protected User $student;
+
     protected User $pcUser;
+
     protected Company $verifiedCompany;
+
     protected Skill $laravelSkill;
+
     protected Skill $dockerSkill;
 
     protected function setUp(): void

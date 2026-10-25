@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\CompanyClassification;
 use App\Enums\MoaCustodianParty;
 use App\Enums\MoaStatus;
 use App\Enums\MoaType;
@@ -58,10 +57,10 @@ class MoaController extends Controller
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('moa_number', 'like', "%{$search}%")
-                  ->orWhere('summary', 'like', "%{$search}%")
-                  ->orWhereHas('company', function ($cq) use ($search) {
-                      $cq->where('name', 'like', "%{$search}%");
-                  });
+                    ->orWhere('summary', 'like', "%{$search}%")
+                    ->orWhereHas('company', function ($cq) use ($search) {
+                        $cq->where('name', 'like', "%{$search}%");
+                    });
             });
         }
 
@@ -114,8 +113,8 @@ class MoaController extends Controller
             'custody_note' => ['nullable', 'string', 'max:500'],
         ]);
 
-        $initialParty = $validated['initial_custodian_party'] 
-            ?? $validated['current_custodian_party'] 
+        $initialParty = $validated['initial_custodian_party']
+            ?? $validated['current_custodian_party']
             ?? MoaCustodianParty::OC->value;
 
         $moa = DB::transaction(function () use ($validated, $initialParty) {
@@ -147,7 +146,7 @@ class MoaController extends Controller
             ]);
 
             // Optional: attach initial document version
-            if (!empty($validated['document_id'])) {
+            if (! empty($validated['document_id'])) {
                 MoaVersion::create([
                     'moa_id' => $moa->id,
                     'version_no' => 1,
@@ -249,7 +248,7 @@ class MoaController extends Controller
 
         return redirect()->route('moas.show', $moa)->with(
             'status',
-            "MOA status changed to " . ($toStatus instanceof MoaStatus ? $toStatus->label() : $toStatus) . "."
+            'MOA status changed to '.($toStatus instanceof MoaStatus ? $toStatus->label() : $toStatus).'.'
         );
     }
 

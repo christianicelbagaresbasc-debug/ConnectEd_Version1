@@ -6,6 +6,8 @@ use App\Enums\UserRole;
 use App\Enums\UserStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -62,32 +64,32 @@ class User extends Authenticatable
         return $this->belongsTo(User::class, 'approved_by');
     }
 
-    public function studentProfile(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function studentProfile(): HasOne
     {
         return $this->hasOne(StudentProfile::class);
     }
 
-    public function partnerAccount(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function partnerAccount(): HasOne
     {
         return $this->hasOne(PartnerAccount::class);
     }
 
-    public function documents(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function documents(): HasMany
     {
         return $this->hasMany(Document::class, 'owner_user_id');
     }
 
-    public function uploadedDocuments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function uploadedDocuments(): HasMany
     {
         return $this->hasMany(Document::class, 'uploaded_by');
     }
 
-    public function auditLogs(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function auditLogs(): HasMany
     {
         return $this->hasMany(AuditLog::class, 'actor_id');
     }
 
-    public function assignedStudents(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function assignedStudents(): HasMany
     {
         return $this->hasMany(StudentProfile::class, 'assigned_coc_id');
     }
@@ -115,6 +117,21 @@ class User extends Authenticatable
     public function isStudent(): bool
     {
         return $this->role === UserRole::STUDENT;
+    }
+
+    public function isCoordinator(): bool
+    {
+        return in_array($this->role, [UserRole::OC, UserRole::COC]);
+    }
+
+    public function isCoCoordinator(): bool
+    {
+        return $this->role === UserRole::COC;
+    }
+
+    public function isApproved(): bool
+    {
+        return $this->isActive();
     }
 
     public function isActive(): bool

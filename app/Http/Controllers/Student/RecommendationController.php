@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Student;
 
 use App\Enums\CompanyClassification;
 use App\Enums\CompanyVerificationStatus;
-use App\Enums\OpportunityStatus;
 use App\Enums\SkillStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Company;
@@ -26,12 +25,12 @@ class RecommendationController extends Controller
     {
         $user = Auth::user();
 
-        if (!$user->isStudent()) {
+        if (! $user->isStudent()) {
             abort(403, 'Recommendations are reserved for ICS students.');
         }
 
         $studentProfile = $user->studentProfile;
-        if (!$studentProfile) {
+        if (! $studentProfile) {
             abort(403, 'Student profile not initialized.');
         }
 
@@ -48,9 +47,9 @@ class RecommendationController extends Controller
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%")
-                  ->orWhere('location', 'like', "%{$search}%")
-                  ->orWhereHas('company', fn ($cq) => $cq->where('name', 'like', "%{$search}%"));
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhere('location', 'like', "%{$search}%")
+                    ->orWhereHas('company', fn ($cq) => $cq->where('name', 'like', "%{$search}%"));
             });
         }
 
@@ -59,7 +58,7 @@ class RecommendationController extends Controller
         }
 
         if ($request->filled('location')) {
-            $query->where('location', 'like', '%' . $request->input('location') . '%');
+            $query->where('location', 'like', '%'.$request->input('location').'%');
         }
 
         if ($request->filled('company_id')) {
@@ -76,6 +75,7 @@ class RecommendationController extends Controller
         // Match each opportunity against the student's skills
         $scoredRecommendations = $allOpportunities->map(function (Opportunity $opportunity) use ($matcher, $studentSkillIds) {
             $matchResult = $matcher->match($studentSkillIds, $opportunity);
+
             return [
                 'opportunity' => $opportunity,
                 'match' => $matchResult,

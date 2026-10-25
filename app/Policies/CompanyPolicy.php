@@ -35,9 +35,10 @@ class CompanyPolicy
 
         if ($user->isPc()) {
             // PC can view their own company regardless of status, or any verified company
-            if ($user->partnerAccount && (string)$user->partnerAccount->company_id === (string)$company->id) {
+            if ($user->partnerAccount && (string) $user->partnerAccount->company_id === (string) $company->id) {
                 return true;
             }
+
             return $company->verification_status === CompanyVerificationStatus::VERIFIED;
         }
 
@@ -70,7 +71,7 @@ class CompanyPolicy
 
         if ($user->isPc()) {
             // PC can update non-regulatory profile information for their own company
-            return $user->partnerAccount && (string)$user->partnerAccount->company_id === (string)$company->id;
+            return $user->partnerAccount && (string) $user->partnerAccount->company_id === (string) $company->id;
         }
 
         return false;

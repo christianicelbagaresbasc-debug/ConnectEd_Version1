@@ -36,8 +36,8 @@ class CompanySuggestionController extends Controller
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('company_name', 'like', "%{$search}%")
-                  ->orWhere('contact_details', 'like', "%{$search}%")
-                  ->orWhere('notes', 'like', "%{$search}%");
+                    ->orWhere('contact_details', 'like', "%{$search}%")
+                    ->orWhere('notes', 'like', "%{$search}%");
             });
         }
 
@@ -140,7 +140,7 @@ class CompanySuggestionController extends Controller
 
         $suggestion->update([
             'status' => CompanySuggestionStatus::DISMISSED,
-            'notes' => $suggestion->notes . ($validated['reason'] ? "\nDismissal Reason: " . $validated['reason'] : ''),
+            'notes' => $suggestion->notes.($validated['reason'] ? "\nDismissal Reason: ".$validated['reason'] : ''),
             'handled_by' => Auth::id(),
             'handled_at' => now(),
         ]);

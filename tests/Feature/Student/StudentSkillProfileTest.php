@@ -18,9 +18,13 @@ class StudentSkillProfileTest extends TestCase
     use RefreshDatabase;
 
     protected User $student;
+
     protected StudentProfile $studentProfile;
+
     protected User $otherStudent;
+
     protected StudentProfile $otherStudentProfile;
+
     protected Skill $skill;
 
     protected function setUp(): void

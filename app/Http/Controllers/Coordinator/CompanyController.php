@@ -32,8 +32,8 @@ class CompanyController extends Controller
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('industry', 'like', "%{$search}%")
-                  ->orWhere('city', 'like', "%{$search}%");
+                    ->orWhere('industry', 'like', "%{$search}%")
+                    ->orWhere('city', 'like', "%{$search}%");
             });
         }
 
@@ -161,7 +161,7 @@ class CompanyController extends Controller
         $this->authorize('update', $company);
 
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:companies,name,' . $company->id],
+            'name' => ['required', 'string', 'max:255', 'unique:companies,name,'.$company->id],
             'industry' => ['nullable', 'string', 'max:255'],
             'address' => ['nullable', 'string', 'max:255'],
             'city' => ['nullable', 'string', 'max:255'],
@@ -207,7 +207,7 @@ class CompanyController extends Controller
     {
         $this->authorize('promote', $company);
 
-        if (!$company->canBePromoted()) {
+        if (! $company->canBePromoted()) {
             return back()->with('error', 'Only verified New Companies can be promoted to Existing Partner.');
         }
 

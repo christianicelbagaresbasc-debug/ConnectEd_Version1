@@ -98,12 +98,12 @@ class Opportunity extends Model
 
     public function isDeadlinePassed(): bool
     {
-        return $this->deadline && $this->deadline->isPast() && !$this->deadline->isToday();
+        return $this->deadline && $this->deadline->isPast() && ! $this->deadline->isToday();
     }
 
     public function isOpen(): bool
     {
-        return $this->status === OpportunityStatus::OPEN && !$this->isDeadlinePassed() && $this->hasAvailableSlots();
+        return $this->status === OpportunityStatus::OPEN && ! $this->isDeadlinePassed() && $this->hasAvailableSlots();
     }
 
     public function scopeOpen(Builder $query): Builder
@@ -112,7 +112,7 @@ class Opportunity extends Model
             ->whereColumn('slots_total', '>', 'slots_filled')
             ->where(function ($q) {
                 $q->whereNull('deadline')
-                  ->orWhere('deadline', '>=', now()->toDateString());
+                    ->orWhere('deadline', '>=', now()->toDateString());
             });
     }
 
@@ -120,8 +120,18 @@ class Opportunity extends Model
     {
         return $query->whereHas('company', function ($q) {
             $q->where('classification', CompanyClassification::EXISTING_PARTNER)
-              ->where('verification_status', CompanyVerificationStatus::VERIFIED)
-              ->where('is_active', true);
+                ->where('verification_status', CompanyVerificationStatus::VERIFIED)
+                ->where('is_active', true);
         });
+    }
+
+    public function applications(): HasMany
+    {
+        return $this->hasMany(Application::class);
+    }
+
+    public function placements(): HasMany
+    {
+        return $this->hasMany(Placement::class);
     }
 }

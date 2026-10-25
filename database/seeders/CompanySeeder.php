@@ -5,10 +5,12 @@ namespace Database\Seeders;
 use App\Enums\CompanyClassification;
 use App\Enums\CompanySource;
 use App\Enums\CompanyVerificationStatus;
+use App\Enums\UserRole;
 use App\Enums\VerificationItemStatus;
 use App\Models\Company;
 use App\Models\CompanyVerificationItem;
 use App\Models\CompanyVerificationLog;
+use App\Models\PartnerAccount;
 use App\Models\User;
 use App\Models\VerificationRequirement;
 use Illuminate\Database\Seeder;
@@ -178,6 +180,21 @@ class CompanySeeder extends Seeder
                 'actor_id' => $ocUser?->id,
                 'created_at' => now(),
             ]);
+        }
+
+        // Link seeded Partner Company (PC) user to NexTech Solutions Inc.
+        $pcUser = User::where('role', UserRole::PC)->first();
+        $nextech = Company::where('name', 'NexTech Solutions Inc.')->first();
+        if ($pcUser && $nextech) {
+            PartnerAccount::firstOrCreate(
+                ['user_id' => $pcUser->id],
+                [
+                    'company_id' => $nextech->id,
+                    'job_title' => 'HR & Talent Acquisition Lead',
+                    'department' => 'Human Resources',
+                    'phone_number' => '+63 44 791 2005',
+                ]
+            );
         }
     }
 }

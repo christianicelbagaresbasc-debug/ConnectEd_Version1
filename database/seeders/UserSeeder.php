@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     {
         $defaultPassword = env('SEED_DEFAULT_PASSWORD', 'ConnectEd2026!');
 
-        if (app()->environment('production') && !env('SEED_DEFAULT_PASSWORD')) {
+        if (app()->environment('production') && ! env('SEED_DEFAULT_PASSWORD')) {
             throw new \RuntimeException('SEED_DEFAULT_PASSWORD must be explicitly provided in production environments.');
         }
 

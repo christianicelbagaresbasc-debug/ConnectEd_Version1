@@ -24,9 +24,13 @@ class MoaTrackingTest extends TestCase
     use RefreshDatabase;
 
     protected User $coordinator;
+
     protected User $attorney;
+
     protected User $studentUser;
+
     protected StudentProfile $studentProfile;
+
     protected Company $company;
 
     protected function setUp(): void

@@ -45,12 +45,12 @@ class MoaPolicy
         }
 
         if ($user->isPc()) {
-            return $user->partnerAccount && (string)$user->partnerAccount->company_id === (string)$moa->company_id;
+            return $user->partnerAccount && (string) $user->partnerAccount->company_id === (string) $moa->company_id;
         }
 
         if ($user->isStudent()) {
             // Student can view their own student-specific MOA
-            if ($user->studentProfile && (string)$user->studentProfile->id === (string)$moa->student_profile_id) {
+            if ($user->studentProfile && (string) $user->studentProfile->id === (string) $moa->student_profile_id) {
                 return true;
             }
 
@@ -94,11 +94,11 @@ class MoaPolicy
             return true;
         }
 
-        if ($user->isPc() && $user->partnerAccount && (string)$user->partnerAccount->company_id === (string)$moa->company_id) {
+        if ($user->isPc() && $user->partnerAccount && (string) $user->partnerAccount->company_id === (string) $moa->company_id) {
             return true;
         }
 
-        if ($user->isStudent() && $user->studentProfile && (string)$user->studentProfile->id === (string)$moa->student_profile_id) {
+        if ($user->isStudent() && $user->studentProfile && (string) $user->studentProfile->id === (string) $moa->student_profile_id) {
             return true;
         }
 

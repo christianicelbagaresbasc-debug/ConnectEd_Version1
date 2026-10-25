@@ -27,10 +27,10 @@ class StudentApprovalController extends Controller
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%")
-                  ->orWhereHas('studentProfile', function ($sq) use ($search) {
-                      $sq->where('student_number', 'like', "%{$search}%");
-                  });
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhereHas('studentProfile', function ($sq) use ($search) {
+                        $sq->where('student_number', 'like', "%{$search}%");
+                    });
             });
         }
 
@@ -50,7 +50,7 @@ class StudentApprovalController extends Controller
     {
         $this->authorize('approve', User::class);
 
-        if (!$user->isStudent() || !$user->isPending()) {
+        if (! $user->isStudent() || ! $user->isPending()) {
             return back()->with('error', 'Only pending student accounts can be approved.');
         }
 
@@ -72,7 +72,7 @@ class StudentApprovalController extends Controller
     {
         $this->authorize('approve', User::class);
 
-        if (!$user->isStudent()) {
+        if (! $user->isStudent()) {
             return back()->with('error', 'Only student accounts can be rejected through this action.');
         }
 

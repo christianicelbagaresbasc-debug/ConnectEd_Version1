@@ -38,7 +38,7 @@ class MoaLegalReviewController extends Controller
             // Default: Under Legal Review or with unresolved notes
             $query->where(function ($q) {
                 $q->where('status', MoaStatus::UNDER_LEGAL_REVIEW)
-                  ->orWhereHas('unresolvedNotes');
+                    ->orWhereHas('unresolvedNotes');
             });
         }
 
@@ -46,8 +46,8 @@ class MoaLegalReviewController extends Controller
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('moa_number', 'like', "%{$search}%")
-                  ->orWhere('summary', 'like', "%{$search}%")
-                  ->orWhereHas('company', fn ($cq) => $cq->where('name', 'like', "%{$search}%"));
+                    ->orWhere('summary', 'like', "%{$search}%")
+                    ->orWhereHas('company', fn ($cq) => $cq->where('name', 'like', "%{$search}%"));
             });
         }
 
@@ -132,7 +132,7 @@ class MoaLegalReviewController extends Controller
             'author_id' => Auth::id(),
             'type' => MoaNoteType::LEGAL_REMARK,
             'risk_level' => MoaRiskLevel::LOW,
-            'body' => "LEGAL CLEARANCE: " . $validated['clearance_remark'],
+            'body' => 'LEGAL CLEARANCE: '.$validated['clearance_remark'],
             'resolved_at' => now(),
             'resolved_by' => Auth::id(),
         ]);
@@ -149,7 +149,7 @@ class MoaLegalReviewController extends Controller
 
         return redirect()->route('moas.show', $moa)->with(
             'status',
-            "MOA has been cleared by University Legal Counsel and transitioned to " . ($validated['target_status'] instanceof MoaStatus ? $validated['target_status']->label() : $validated['target_status']) . "."
+            'MOA has been cleared by University Legal Counsel and transitioned to '.($validated['target_status'] instanceof MoaStatus ? $validated['target_status']->label() : $validated['target_status']).'.'
         );
     }
 }

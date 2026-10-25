@@ -19,14 +19,16 @@ class SkillMatcherTest extends TestCase
     use RefreshDatabase;
 
     protected SkillMatcher $matcher;
+
     protected User $user;
+
     protected Company $company;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->matcher = new SkillMatcher();
+        $this->matcher = new SkillMatcher;
 
         $this->user = User::factory()->create();
 

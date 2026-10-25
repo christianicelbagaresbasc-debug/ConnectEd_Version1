@@ -15,8 +15,11 @@ class DocumentAuthorizationMatrixTest extends TestCase
     use RefreshDatabase;
 
     protected User $oc;
+
     protected User $studentA;
+
     protected User $studentB;
+
     protected User $ua;
 
     protected function setUp(): void

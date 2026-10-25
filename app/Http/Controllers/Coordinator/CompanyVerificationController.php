@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\CompanyVerificationItem;
 use App\Models\CompanyVerificationLog;
-use App\Models\Document;
 use App\Services\AuditService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -107,7 +106,7 @@ class CompanyVerificationController extends Controller
 
         return back()->with(
             'status',
-            "Verification status for '{$company->name}' changed to " . ($toStatus instanceof CompanyVerificationStatus ? $toStatus->label() : $toStatus) . "."
+            "Verification status for '{$company->name}' changed to ".($toStatus instanceof CompanyVerificationStatus ? $toStatus->label() : $toStatus).'.'
         );
     }
 }

@@ -17,6 +17,7 @@ class CompanyManagementTest extends TestCase
     use RefreshDatabase;
 
     protected User $coordinator;
+
     protected User $student;
 
     protected function setUp(): void

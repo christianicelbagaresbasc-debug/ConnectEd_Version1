@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\CompanyClassification;
 use App\Enums\CompanySource;
 use App\Enums\CompanyVerificationStatus;
+use App\Enums\MoaStatus;
 use App\Enums\VerificationItemStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -75,7 +76,7 @@ class Company extends Model
 
     public function activeMoa(): HasMany
     {
-        return $this->hasMany(Moa::class)->where('status', \App\Enums\MoaStatus::ACTIVE);
+        return $this->hasMany(Moa::class)->where('status', MoaStatus::ACTIVE);
     }
 
     public function isExistingPartner(): bool
@@ -119,8 +120,13 @@ class Company extends Model
         return (int) round(($accepted / $total) * 100);
     }
 
-    public function opportunities(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function opportunities(): HasMany
     {
         return $this->hasMany(Opportunity::class);
+    }
+
+    public function placements(): HasMany
+    {
+        return $this->hasMany(Placement::class);
     }
 }

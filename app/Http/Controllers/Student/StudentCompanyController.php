@@ -19,7 +19,7 @@ class StudentCompanyController extends Controller
         $query = Company::where('is_active', true)
             ->where(function ($q) {
                 $q->where('verification_status', CompanyVerificationStatus::VERIFIED)
-                  ->orWhere('classification', CompanyClassification::EXISTING_PARTNER);
+                    ->orWhere('classification', CompanyClassification::EXISTING_PARTNER);
             })
             ->latest();
 
@@ -27,9 +27,9 @@ class StudentCompanyController extends Controller
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('industry', 'like', "%{$search}%")
-                  ->orWhere('city', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
+                    ->orWhere('industry', 'like', "%{$search}%")
+                    ->orWhere('city', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
             });
         }
 

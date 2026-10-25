@@ -16,11 +16,17 @@ class StudentDirectoryTest extends TestCase
     use RefreshDatabase;
 
     protected User $coordinator;
+
     protected User $coCoordinator;
+
     protected User $studentA;
+
     protected User $studentB;
+
     protected StudentProfile $profileA;
+
     protected StudentProfile $profileB;
+
     protected Skill $skill;
 
     protected function setUp(): void

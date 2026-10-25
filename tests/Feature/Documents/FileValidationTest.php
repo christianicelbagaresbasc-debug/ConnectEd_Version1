@@ -17,6 +17,7 @@ class FileValidationTest extends TestCase
     use RefreshDatabase;
 
     protected User $student;
+
     protected DocumentService $documentService;
 
     protected function setUp(): void

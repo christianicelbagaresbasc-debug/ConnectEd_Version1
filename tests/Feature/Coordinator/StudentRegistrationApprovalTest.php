@@ -14,6 +14,7 @@ class StudentRegistrationApprovalTest extends TestCase
     use RefreshDatabase;
 
     protected User $coordinator;
+
     protected User $pendingStudent;
 
     protected function setUp(): void

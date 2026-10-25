@@ -2,27 +2,36 @@
 
 use App\Http\Controllers\Attorney\MoaLegalReviewController;
 use App\Http\Controllers\Auth\ForcedPasswordChangeController;
+use App\Http\Controllers\Coordinator\ApplicationController as CoordinatorApplicationController;
 use App\Http\Controllers\Coordinator\ArchiveController;
 use App\Http\Controllers\Coordinator\AuditLogController;
 use App\Http\Controllers\Coordinator\CompanyController;
 use App\Http\Controllers\Coordinator\CompanySuggestionController;
 use App\Http\Controllers\Coordinator\CompanyVerificationController;
 use App\Http\Controllers\Coordinator\PasswordResetController;
+use App\Http\Controllers\Coordinator\PlacementController as CoordinatorPlacementController;
 use App\Http\Controllers\Coordinator\SkillController;
 use App\Http\Controllers\Coordinator\StaffProvisioningController;
 use App\Http\Controllers\Coordinator\StudentApprovalController;
 use App\Http\Controllers\Coordinator\StudentController;
+use App\Http\Controllers\Coordinator\WeeklyReportReviewController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\MoaController;
 use App\Http\Controllers\MoaCustodyController;
 use App\Http\Controllers\MoaVersionController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OpportunityController;
+use App\Http\Controllers\PartnerCompany\CompanyApplicationController;
+use App\Http\Controllers\PartnerCompany\CompanyPlacementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Student\RecommendationController;
+use App\Http\Controllers\Student\StudentApplicationController;
 use App\Http\Controllers\Student\StudentCertificationController;
 use App\Http\Controllers\Student\StudentCompanyController;
 use App\Http\Controllers\Student\StudentCompanySuggestionController;
+use App\Http\Controllers\Student\StudentPlacementController;
 use App\Http\Controllers\Student\StudentSkillController;
+use App\Http\Controllers\Student\StudentWeeklyReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -149,6 +158,32 @@ Route::middleware(['auth', 'verified'])->prefix('coordinator')->name('coordinato
         ->name('students.index');
     Route::get('/students/{studentProfile}', [StudentController::class, 'show'])
         ->name('students.show');
+
+    // Application Management & Offer Decisions (F-014, BR-20)
+    Route::get('/applications', [CoordinatorApplicationController::class, 'index'])
+        ->name('applications.index');
+    Route::get('/applications/{application}', [CoordinatorApplicationController::class, 'show'])
+        ->name('applications.show');
+    Route::post('/applications/{application}/review', [CoordinatorApplicationController::class, 'markUnderReview'])
+        ->name('applications.review');
+    Route::post('/applications/{application}/decide', [CoordinatorApplicationController::class, 'decide'])
+        ->name('applications.decide');
+    Route::post('/applications/{application}/confirm', [CoordinatorApplicationController::class, 'confirm'])
+        ->name('applications.confirm');
+
+    // Placement Tracking & Start Authorization (F-015, F-016, BR-19)
+    Route::get('/placements', [CoordinatorPlacementController::class, 'index'])
+        ->name('placements.index');
+    Route::get('/placements/{placement}', [CoordinatorPlacementController::class, 'show'])
+        ->name('placements.show');
+    Route::post('/placements/{placement}/authorize', [CoordinatorPlacementController::class, 'authorizeStart'])
+        ->name('placements.authorize');
+    Route::post('/placements/{placement}/status', [CoordinatorPlacementController::class, 'updateStatus'])
+        ->name('placements.status');
+
+    // Weekly Report Reviews (F-016, Assumption A9)
+    Route::post('/weekly-reports/{weeklyReport}/review', [WeeklyReportReviewController::class, 'review'])
+        ->name('weekly-reports.review');
 });
 
 // Student Module Routes
@@ -188,6 +223,26 @@ Route::middleware(['auth', 'verified'])->prefix('student')->name('student.')->gr
     // Transparent Recommendations Engine (F-013, BR-20)
     Route::get('/recommendations', [RecommendationController::class, 'index'])
         ->name('recommendations.index');
+
+    // Student Applications & Offer Confirmation (F-014, F-015)
+    Route::get('/applications', [StudentApplicationController::class, 'index'])
+        ->name('applications.index');
+    Route::post('/opportunities/{opportunity}/apply', [StudentApplicationController::class, 'store'])
+        ->name('opportunities.apply');
+    Route::get('/applications/{application}', [StudentApplicationController::class, 'show'])
+        ->name('applications.show');
+    Route::post('/applications/{application}/confirm', [StudentApplicationController::class, 'confirm'])
+        ->name('applications.confirm');
+    Route::post('/applications/{application}/decline', [StudentApplicationController::class, 'decline'])
+        ->name('applications.decline');
+    Route::post('/applications/{application}/withdraw', [StudentApplicationController::class, 'withdraw'])
+        ->name('applications.withdraw');
+
+    // Student Placement & Weekly Reports (F-015, F-016)
+    Route::get('/placements/{placement}', [StudentPlacementController::class, 'show'])
+        ->name('placements.show');
+    Route::post('/placements/{placement}/reports', [StudentWeeklyReportController::class, 'store'])
+        ->name('placements.reports.store');
 });
 
 // Opportunity Management & Directory (F-012, FR-08, FR-09, FR-10)
@@ -250,5 +305,30 @@ Route::put('/documents/upload/direct', [DocumentController::class, 'directUpload
 Route::get('/documents/{document}/serve', [DocumentController::class, 'directDownloadServe'])
     ->name('documents.download.serve');
 
-require __DIR__.'/auth.php';
+// Partner Company Module Routes (F-014, F-016, BR-20)
 
+Route::middleware(['auth', 'verified'])->prefix('company')->name('company.')->group(function () {
+    Route::get('/applications', [CompanyApplicationController::class, 'index'])
+        ->name('applications.index');
+    Route::get('/applications/{application}', [CompanyApplicationController::class, 'show'])
+        ->name('applications.show');
+    Route::post('/applications/{application}/review', [CompanyApplicationController::class, 'markUnderReview'])
+        ->name('applications.review');
+    Route::post('/applications/{application}/decide', [CompanyApplicationController::class, 'decide'])
+        ->name('applications.decide');
+
+    Route::get('/placements', [CompanyPlacementController::class, 'index'])
+        ->name('placements.index');
+    Route::get('/placements/{placement}', [CompanyPlacementController::class, 'show'])
+        ->name('placements.show');
+});
+
+// In-System Notifications Center (F-017, BR-02)
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
+    Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead'])->name('notifications.read-all');
+    Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount'])->name('notifications.unread-count');
+});
+
+require __DIR__.'/auth.php';

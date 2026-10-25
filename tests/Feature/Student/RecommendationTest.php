@@ -24,11 +24,17 @@ class RecommendationTest extends TestCase
     use RefreshDatabase;
 
     protected User $student;
+
     protected StudentProfile $studentProfile;
+
     protected Company $verifiedCompany;
+
     protected Skill $laravelSkill;
+
     protected Skill $vueSkill;
+
     protected Skill $dockerSkill;
+
     protected Opportunity $opportunity;
 
     protected function setUp(): void
@@ -140,14 +146,14 @@ class RecommendationTest extends TestCase
 
         foreach ($controllers as $file) {
             $content = file_get_contents($file);
-            if (preg_match('/orderBy.*score/i', $content) && !str_contains($file, 'RecommendationController.php')) {
+            if (preg_match('/orderBy.*score/i', $content) && ! str_contains($file, 'RecommendationController.php')) {
                 $violations[] = basename($file);
             }
         }
 
         $this->assertEmpty(
             $violations,
-            'Rule BR-20 violation: controllers must never order or rank students by match score: ' . implode(', ', $violations)
+            'Rule BR-20 violation: controllers must never order or rank students by match score: '.implode(', ', $violations)
         );
     }
 }

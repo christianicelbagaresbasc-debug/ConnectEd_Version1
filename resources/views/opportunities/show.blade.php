@@ -270,6 +270,64 @@
                     </div>
                 @endif
             </div>
+
+            <!-- Student Application Action Card (F-014) -->
+            @auth
+                @if(Auth::user()->isStudent())
+                    @php
+                        $profile = Auth::user()->studentProfile;
+                        $existingApp = $profile ? $opportunity->applications()->where('student_profile_id', $profile->id)->first() : null;
+                    @endphp
+                    <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-3">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-text-muted border-b border-border pb-2">Apply for Placement</h3>
+                        @if($existingApp)
+                            <div class="space-y-2">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold border {{ $existingApp->status->badgeClasses() }}">
+                                    {{ $existingApp->status->label() }}
+                                </span>
+                                <p class="text-xs text-text-muted">You applied for this position on {{ $existingApp->submitted_at->format('M d, Y') }}.</p>
+                                <a href="{{ route('student.applications.show', $existingApp) }}" class="block w-full text-center px-4 py-2 text-xs font-semibold rounded-lg bg-surface-2 text-primary hover:bg-surface border border-border transition">
+                                    View Application Status &rarr;
+                                </a>
+                            </div>
+                        @elseif($profile && $profile->has_active_placement)
+                            <div class="p-3 rounded-lg bg-surface-2 border border-border text-xs text-text-muted">
+                                You already have an active placement and cannot apply for additional roles (Rule BR-19).
+                            </div>
+                        @elseif($opportunity->isOpen())
+                            <div x-data="{ open: false }" class="space-y-2">
+                                <p class="text-xs text-text-muted">Ready to apply? Submit your application with your verified skills profile.</p>
+                                <button @click="open = true" type="button" class="w-full px-4 py-2 text-xs font-semibold rounded-lg bg-primary text-primary-contrast shadow hover:opacity-90 transition">
+                                    Apply for this Opportunity
+                                </button>
+
+                                <div x-show="open" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60" style="display: none;">
+                                    <div @click.outside="open = false" class="bg-surface border border-border rounded-xl max-w-md w-full p-6 shadow-xl space-y-4">
+                                        <h3 class="text-sm font-bold text-text">Apply for {{ $opportunity->title }}</h3>
+                                        <p class="text-xs text-text-muted">Your verified skills profile and official resume will be shared with the coordinator and host company.</p>
+                                        <form method="POST" action="{{ route('student.opportunities.apply', $opportunity) }}" class="space-y-4">
+                                            @csrf
+                                            <div>
+                                                <label class="block text-xs font-semibold text-text-muted mb-1">Cover Note / Expression of Interest (Optional)</label>
+                                                <textarea name="cover_note" rows="3" class="w-full px-3 py-2 text-xs rounded-lg border border-border bg-surface text-text" placeholder="Explain your interest in this role and why your skills are a great match..."></textarea>
+                                            </div>
+                                            <div class="flex justify-end gap-2 pt-2">
+                                                <button @click="open = false" type="button" class="px-3 py-1.5 text-xs font-medium rounded-lg text-text hover:bg-surface-2">Cancel</button>
+                                                <button type="submit" class="px-4 py-1.5 text-xs font-semibold rounded-lg bg-primary text-primary-contrast shadow">Submit Application</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <div class="p-3 rounded-lg bg-surface-2 border border-border text-xs text-text-muted">
+                                This opportunity is currently closed to new applications.
+                            </div>
+                        @endif
+                    </div>
+                @endif
+            @endauth
         </div>
     </div>
 </x-app-layout>
+

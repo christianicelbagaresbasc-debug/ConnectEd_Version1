@@ -7,6 +7,7 @@ use App\Models\Document;
 use App\Models\DocumentBatch;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -40,13 +41,13 @@ class DocumentService
         $role = $user->role;
 
         return match ($category) {
-            'resume', 'certification' => $role === UserRole::OC || ($role === UserRole::STUDENT && (string)$user->id === (string)$targetOwnerId),
+            'resume', 'certification' => $role === UserRole::OC || ($role === UserRole::STUDENT && (string) $user->id === (string) $targetOwnerId),
             'verification' => $role === UserRole::OC || $role === UserRole::PC,
             'moa' => in_array($role, [UserRole::OC, UserRole::UA, UserRole::PC, UserRole::STUDENT]),
             'authorization' => in_array($role, [UserRole::OC, UserRole::COC]),
-            'weekly_report' => $role === UserRole::OC || ($role === UserRole::STUDENT && (string)$user->id === (string)$targetOwnerId),
+            'weekly_report' => $role === UserRole::OC || ($role === UserRole::STUDENT && (string) $user->id === (string) $targetOwnerId),
             'template' => $role === UserRole::OC,
-            'other' => $role === UserRole::OC || ($role === UserRole::STUDENT && (string)$user->id === (string)$targetOwnerId),
+            'other' => $role === UserRole::OC || ($role === UserRole::STUDENT && (string) $user->id === (string) $targetOwnerId),
             default => false,
         };
     }
@@ -57,7 +58,7 @@ class DocumentService
     public static function canDownload(User $user, Document $document): bool
     {
         $role = $user->role;
-        $isOwner = (string)$user->id === (string)$document->owner_user_id;
+        $isOwner = (string) $user->id === (string) $document->owner_user_id;
 
         if ($role === UserRole::OC) {
             return true;
@@ -116,16 +117,16 @@ class DocumentService
 
         foreach ($fileRequests as $file) {
             $name = $file['name'];
-            $size = (int)$file['size'];
+            $size = (int) $file['size'];
             $declaredMime = strtolower($file['mime'] ?? '');
             $category = $file['category'];
             $ownerId = $file['owner_user_id'] ?? $user->id;
 
             // Validate extension
             $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
-            if (!in_array($ext, self::ALLOWED_EXTENSIONS)) {
+            if (! in_array($ext, self::ALLOWED_EXTENSIONS)) {
                 throw ValidationException::withMessages([
-                    'files' => "File '{$name}' has an unauthorized file extension. Allowed: " . implode(', ', self::ALLOWED_EXTENSIONS),
+                    'files' => "File '{$name}' has an unauthorized file extension. Allowed: ".implode(', ', self::ALLOWED_EXTENSIONS),
                 ]);
             }
 
@@ -138,13 +139,13 @@ class DocumentService
             }
 
             // Authorize upload
-            if (!self::canUpload($user, $category, (string)$ownerId)) {
+            if (! self::canUpload($user, $category, (string) $ownerId)) {
                 throw ValidationException::withMessages([
                     'files' => "You are not authorized to upload a '{$category}' document for this record.",
                 ]);
             }
 
-            $storageKey = 'documents/' . date('Y/m/') . Str::uuid() . '.' . $ext;
+            $storageKey = 'documents/'.date('Y/m/').Str::uuid().'.'.$ext;
 
             $document = Document::create([
                 'owner_user_id' => $ownerId,
@@ -195,12 +196,13 @@ class DocumentService
         foreach ($batch->documents()->where('validation_status', 'pending')->get() as $doc) {
             $key = $doc->storage_key;
 
-            if (!$disk->exists($key)) {
+            if (! $disk->exists($key)) {
                 $doc->update([
                     'validation_status' => 'rejected',
                     'validation_remark' => 'Uploaded object was not found in storage.',
                 ]);
                 $results[] = ['document_id' => $doc->id, 'status' => 'rejected', 'error' => 'Not found in storage'];
+
                 continue;
             }
 
@@ -213,6 +215,7 @@ class DocumentService
                     'validation_remark' => "Uploaded file size ({$actualSize} bytes) exceeded {$maxMb} MB limit.",
                 ]);
                 $results[] = ['document_id' => $doc->id, 'status' => 'rejected', 'error' => 'Size exceeded'];
+
                 continue;
             }
 
@@ -224,19 +227,20 @@ class DocumentService
             }
 
             $ext = strtolower(pathinfo($doc->original_name, PATHINFO_EXTENSION));
-            if (!$this->verifyMagicBytes($sample, $ext)) {
+            if (! $this->verifyMagicBytes($sample, $ext)) {
                 $doc->update([
                     'validation_status' => 'rejected',
                     'validation_remark' => "Security check failed: File header content does not match .{$ext} specification.",
                 ]);
                 $results[] = ['document_id' => $doc->id, 'status' => 'rejected', 'error' => 'Magic byte verification failed'];
+
                 continue;
             }
 
             // Compute SHA256 checksum
             $fullStream = $disk->readStream($key);
             $ctx = hash_init('sha256');
-            while (!feof($fullStream)) {
+            while (! feof($fullStream)) {
                 hash_update($ctx, fread($fullStream, 8192));
             }
             $checksum = hash_final($ctx);
@@ -275,13 +279,13 @@ class DocumentService
                 $document->storage_key,
                 now()->addSeconds(60),
                 [
-                    'ResponseContentDisposition' => 'attachment; filename="' . addslashes($document->original_name) . '"',
+                    'ResponseContentDisposition' => 'attachment; filename="'.addslashes($document->original_name).'"',
                 ]
             );
         }
 
         // Local signed URL fallback
-        return \Illuminate\Support\Facades\URL::temporarySignedRoute(
+        return URL::temporarySignedRoute(
             'documents.download.serve',
             now()->addSeconds(60),
             ['document' => $document->id]
@@ -300,11 +304,11 @@ class DocumentService
                 'ContentType' => $mime,
             ]);
 
-            return (string)$client->createPresignedRequest($command, '+10 minutes')->getUri();
+            return (string) $client->createPresignedRequest($command, '+10 minutes')->getUri();
         }
 
         // Local development signed route
-        return \Illuminate\Support\Facades\URL::temporarySignedRoute(
+        return URL::temporarySignedRoute(
             'documents.upload.direct',
             now()->addMinutes(10),
             ['key' => $storageKey]
@@ -313,7 +317,7 @@ class DocumentService
 
     protected function verifyMagicBytes(string $sample, string $ext): bool
     {
-        if (!isset(self::MAGIC_BYTES[$ext])) {
+        if (! isset(self::MAGIC_BYTES[$ext])) {
             return false;
         }
 

@@ -50,15 +50,15 @@ class StaffProvisioningController extends Controller
             'phone_number' => ['nullable', 'string', 'max:50'],
         ]);
 
-        $roleEnum = $validated['role'] instanceof UserRole 
-            ? $validated['role'] 
+        $roleEnum = $validated['role'] instanceof UserRole
+            ? $validated['role']
             : UserRole::tryFrom($validated['role']);
 
         if ($roleEnum === UserRole::STUDENT) {
             return back()->with('error', 'Students cannot be provisioned via staff management; use student registration.');
         }
 
-        $temporaryPassword = 'Temp_' . Str::random(10) . '2026!';
+        $temporaryPassword = 'Temp_'.Str::random(10).'2026!';
 
         $newUser = DB::transaction(function () use ($validated, $temporaryPassword) {
             $user = User::create([

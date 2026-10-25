@@ -17,7 +17,9 @@ class CompanyPromotionRuleTest extends TestCase
     use RefreshDatabase;
 
     protected User $coordinator;
+
     protected User $student;
+
     protected User $coCoordinator;
 
     protected function setUp(): void
