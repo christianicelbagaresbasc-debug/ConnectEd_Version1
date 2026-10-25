@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             MoaSeeder::class,
             SkillSeeder::class,
             OpportunityPlacementSeeder::class,
+            TaskSeeder::class,
         ]);
     }
 }

@@ -19,6 +19,8 @@
 | F-015 | Student Offer Confirmation & Placement | Placements | Student, OC | FR-14, FR-15, BR-19 | 6 | Done | [F-015](features/F-015-placements.md) | `/placements` |
 | F-016 | Placement Monitoring & Weekly Reports | Placements | OC, COC, Student | FR-16 | 6 | Done | [F-016](features/F-016-placement-monitoring.md) | `/placements/{id}` |
 | F-017 | In-System Notification Center | Notifications | All Roles | FR-17 | 6 | Done | [F-017](features/F-017-notifications.md) | `/notifications` |
-| F-018 | Role Landing Dashboards & Widgets | Dashboards | All Roles | FR-18 | 7 | Planned | [F-018](features/F-018-dashboards.md) | `/dashboard` |
-| F-019 | Task Delegation & Student Assignment | Work Management | OC, COC | FR-19, FR-20 | 7 | Planned | [F-019](features/F-019-tasks.md) | `/tasks` |
-| F-020 | Document Library & Bundle Downloads | Documents | All Roles | FR-27, FR-28, FR-29 | 7 | Planned | [F-020](features/F-020-document-library.md) | `/document-library` |
+| F-018 | Role Landing Dashboards & Widgets | Dashboards | All Roles | FR-18 | 7 | Done | [F-018](features/F-018-dashboards.md) | `/dashboard` |
+| F-019 | Task Delegation & Student Assignment | Work Management | OC, COC | FR-19, FR-20 | 7 | Done | [F-019](features/F-019-tasks.md) | `/tasks` |
+| F-020 | Document Library & Bundle Downloads | Documents | All Roles | FR-27, FR-28, FR-29 | 7 | Done | [F-020](features/F-020-document-library.md) | `/document-library` |
+| F-021 | Institutional OJT Reports & CSV Exports | Reports | OC, COC | FR-21, FR-24 | 7 | Done | [F-021](features/F-021-reports.md) | `/reports` |
+

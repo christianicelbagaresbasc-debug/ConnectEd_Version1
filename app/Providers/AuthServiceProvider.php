@@ -12,6 +12,7 @@ use App\Models\Opportunity;
 use App\Models\Placement;
 use App\Models\Skill;
 use App\Models\StudentProfile;
+use App\Models\Task;
 use App\Models\User;
 use App\Models\WeeklyReport;
 use App\Policies\ApplicationPolicy;
@@ -23,6 +24,7 @@ use App\Policies\OpportunityPolicy;
 use App\Policies\PlacementPolicy;
 use App\Policies\SkillPolicy;
 use App\Policies\StudentProfilePolicy;
+use App\Policies\TaskPolicy;
 use App\Policies\UserPolicy;
 use App\Policies\WeeklyReportPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -46,6 +48,7 @@ class AuthServiceProvider extends ServiceProvider
         Application::class => ApplicationPolicy::class,
         Placement::class => PlacementPolicy::class,
         WeeklyReport::class => WeeklyReportPolicy::class,
+        Task::class => TaskPolicy::class,
     ];
 
     /**

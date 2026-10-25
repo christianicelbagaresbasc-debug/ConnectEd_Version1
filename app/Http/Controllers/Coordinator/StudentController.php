@@ -3,16 +3,18 @@
 namespace App\Http\Controllers\Coordinator;
 
 use App\Enums\SkillStatus;
+use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Models\Skill;
 use App\Models\StudentProfile;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class StudentController extends Controller
 {
     /**
-     * Coordinator Student Directory (FR-03, FR-18).
+     * Coordinator Student Directory (FR-03, FR-18, FR-20).
      * Strictly alphabetical / chronological listing.
      * Rule BR-20: Student match scores are NEVER calculated, displayed, or used to sort students here.
      */
@@ -20,7 +22,7 @@ class StudentController extends Controller
     {
         $this->authorize('viewAny', StudentProfile::class);
 
-        $query = StudentProfile::with(['user', 'skills', 'certifications'])
+        $query = StudentProfile::with(['user', 'skills', 'certifications', 'assignedCoc'])
             ->whereHas('user', function ($q) {
                 $q->where('status', 'active');
             });
@@ -45,6 +47,15 @@ class StudentController extends Controller
         // Year level filter
         if ($request->filled('year_level')) {
             $query->where('year_level', $request->input('year_level'));
+        }
+
+        // Assigned COC filter
+        if ($request->filled('assigned_coc_id')) {
+            if ($request->input('assigned_coc_id') === 'unassigned') {
+                $query->whereNull('assigned_coc_id');
+            } else {
+                $query->where('assigned_coc_id', $request->input('assigned_coc_id'));
+            }
         }
 
         // Placement Status filter (placed vs looking)
@@ -74,8 +85,12 @@ class StudentController extends Controller
 
         $allowedPrograms = config('connected.allowed_programs', ['BSIT']);
         $skills = Skill::where('status', SkillStatus::ACTIVE)->orderBy('name')->get();
+        $cocs = User::whereIn('role', [UserRole::COC, UserRole::OC])
+            ->where('is_active', true)
+            ->orderBy('name')
+            ->get();
 
-        return view('coordinator.students.index', compact('students', 'allowedPrograms', 'skills'));
+        return view('coordinator.students.index', compact('students', 'allowedPrograms', 'skills', 'cocs'));
     }
 
     /**

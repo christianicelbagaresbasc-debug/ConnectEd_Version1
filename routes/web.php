@@ -13,9 +13,13 @@ use App\Http\Controllers\Coordinator\PlacementController as CoordinatorPlacement
 use App\Http\Controllers\Coordinator\SkillController;
 use App\Http\Controllers\Coordinator\StaffProvisioningController;
 use App\Http\Controllers\Coordinator\StudentApprovalController;
+use App\Http\Controllers\Coordinator\StudentAssignmentController;
 use App\Http\Controllers\Coordinator\StudentController;
+use App\Http\Controllers\Coordinator\TaskController;
 use App\Http\Controllers\Coordinator\WeeklyReportReviewController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\DocumentLibraryController;
 use App\Http\Controllers\MoaController;
 use App\Http\Controllers\MoaCustodyController;
 use App\Http\Controllers\MoaVersionController;
@@ -24,6 +28,7 @@ use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\PartnerCompany\CompanyApplicationController;
 use App\Http\Controllers\PartnerCompany\CompanyPlacementController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Student\RecommendationController;
 use App\Http\Controllers\Student\StudentApplicationController;
 use App\Http\Controllers\Student\StudentCertificationController;
@@ -56,9 +61,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 // Forced Password Change on First Login or Reset
 Route::middleware('auth')->group(function () {
@@ -158,6 +163,10 @@ Route::middleware(['auth', 'verified'])->prefix('coordinator')->name('coordinato
         ->name('students.index');
     Route::get('/students/{studentProfile}', [StudentController::class, 'show'])
         ->name('students.show');
+    Route::post('/students/{student}/assign-coc', [StudentAssignmentController::class, 'assign'])
+        ->name('students.assign-coc');
+    Route::post('/students/bulk-assign-coc', [StudentAssignmentController::class, 'bulkAssign'])
+        ->name('students.bulk-assign-coc');
 
     // Application Management & Offer Decisions (F-014, BR-20)
     Route::get('/applications', [CoordinatorApplicationController::class, 'index'])
@@ -329,6 +338,35 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
     Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead'])->name('notifications.read-all');
     Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount'])->name('notifications.unread-count');
+});
+
+// Task Delegation & Workload Management (FR-19)
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+    Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+    Route::match(['put', 'patch'], '/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
+    Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
+});
+
+// Centralized Document Library & Compliance Matrix (FR-27, FR-28)
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/document-library', [DocumentLibraryController::class, 'index'])
+        ->name('document-library.index');
+    Route::get('/document-library/completeness', [DocumentLibraryController::class, 'completeness'])
+        ->name('document-library.completeness');
+    Route::post('/document-library/bundle', [DocumentLibraryController::class, 'downloadBundle'])
+        ->name('document-library.bundle');
+});
+
+// Institutional OJT Reports & Streaming CSV Exports (FR-18, FR-21)
+Route::middleware(['auth', 'verified'])->prefix('reports')->name('reports.')->group(function () {
+    Route::get('/', [ReportController::class, 'index'])->name('index');
+    Route::get('/placements', [ReportController::class, 'placements'])->name('placements');
+    Route::get('/placements/csv', [ReportController::class, 'exportPlacementsCsv'])->name('placements.csv');
+    Route::get('/companies', [ReportController::class, 'companies'])->name('companies');
+    Route::get('/companies/csv', [ReportController::class, 'exportCompaniesCsv'])->name('companies.csv');
+    Route::get('/skills', [ReportController::class, 'skills'])->name('skills');
+    Route::get('/skills/csv', [ReportController::class, 'exportSkillsCsv'])->name('skills.csv');
 });
 
 require __DIR__.'/auth.php';

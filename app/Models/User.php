@@ -94,6 +94,16 @@ class User extends Authenticatable
         return $this->hasMany(StudentProfile::class, 'assigned_coc_id');
     }
 
+    public function assignedTasks(): HasMany
+    {
+        return $this->hasMany(Task::class, 'assigned_to');
+    }
+
+    public function createdTasks(): HasMany
+    {
+        return $this->hasMany(Task::class, 'created_by');
+    }
+
     public function isOc(): bool
     {
         return $this->role === UserRole::OC;
